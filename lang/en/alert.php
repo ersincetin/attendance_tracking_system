@@ -1,0 +1,39 @@
+<?php
+
+return [
+    /*
+    |--------------------------------------------------------------------------
+    | Alert Field Language Lines
+    |--------------------------------------------------------------------------
+    */
+    'user_add'=>'User Add',
+    'user_update'=>'User Update',
+    'user_delete'=>'User Delete',
+    'update_successfully'=>'Update Successfully',
+    'save_successfully'=>'Save Successfully',
+    'delete_successfully'=>'Delete Successfully',
+    'update_something_went_wrong'=>'An error occurred while updating.',
+    'save_something_went_wrong'=>'An error occurred while saving.',
+    'delete_something_went_wrong'=>'An error occurred while deleting.',
+    ''=>'',
+    ''=>'',
+    ''=>'',
+    ''=>'',
+    ''=>'',
+    ''=>'',
+    ''=>'',
+    ''=>'',
+    ''=>'',
+    ''=>'',
+    ''=>'',
+    ''=>'',
+    ''=>'',
+    ''=>'',
+    ''=>'',
+    ''=>'',
+    ''=>'',
+    ''=>'',
+    ''=>'',
+    ''=>'',
+
+];
