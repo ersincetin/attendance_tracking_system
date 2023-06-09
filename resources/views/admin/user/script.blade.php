@@ -234,16 +234,16 @@
         type = type == 'add' ? 'Add' : 'Edit';
         switch ($('[name="users_datatable"]').attr('data-label')) {
             case 'user':
-                $('#user_modal').find('.modal-title').text("@lang('container.user_add')").end().modal('show');
+                $('#user_modal').find('.modal-title').text("@lang('body.user_add')").end().modal('show');
                 break;
             case 'teacher':
-                $('#user_modal').find('.modal-title').text("@lang('container.teacher_add')").end().modal('show');
+                $('#user_modal').find('.modal-title').text("@lang('body.teacher_add')").end().modal('show');
                 break;
             case 'student-affairs':
-                $('#user_modal').find('.modal-title').text("@lang('container.student_affairs_add')").end().modal('show');
+                $('#user_modal').find('.modal-title').text("@lang('body.student_affairs_add')").end().modal('show');
                 break;
             case 'student':
-                $('#user_modal').find('.modal-title').text("@lang('container.student_add')").end().modal('show');
+                $('#user_modal').find('.modal-title').text("@lang('body.student_add')").end().modal('show');
                 break;
         }
     }

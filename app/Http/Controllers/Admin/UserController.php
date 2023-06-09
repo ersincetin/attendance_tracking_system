@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
@@ -16,14 +16,26 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
         return view('admin/user/index');
     }
 
-    public function profile()
+    /** Display a listing of the Teachers*/
+    public function teachers(): View
     {
-        return view('admin/profile/index');
+        return view('admin.user.teacher.index');
+    }
+
+    /** Display a listing of the Student Affairs*/
+    public function student_affairs(): View
+    {
+        return view('admin.user.student_affairs.index');
+    }
+
+    public function profile(): View
+    {
+        return view('admin.profile.index');
     }
 
     /**
@@ -33,7 +45,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return 1;
+        //
     }
 
     /**
@@ -69,7 +81,6 @@ class UserController extends Controller
                 'sex' => isset($request->sex) ? $request->sex : null,
                 'status' => isset($request->status) ? $request->status : 0,
                 'role_id' => isset($request->userType) ? $request->userType : null,
-                'class_id' => isset($request->classId) ? $request->classId : null,
                 'username' => isset($request->username) ? $request->username : null,
                 'identity_number' => isset($request->identityNumber) ? $request->identityNumber : null,
                 'firstname' => isset($request->firstname) ? $request->firstname : null,
@@ -77,7 +88,7 @@ class UserController extends Controller
                 'lastname' => isset($request->lastname) ? $request->lastname : null,
                 'email' => isset($request->email) ? $request->email : null,
                 'photo_url' => $request->hasFile('file') ? $this->uploadPhoto($request->file) : null,
-                'password' => isset($request->password) ? $request->password : (isset($request->classId) ? $request->identityNumber : null)
+                'password' => isset($request->password) ? Hash::make($request->password) : null
             ]);
             if ($user->save()) return 1;
             return 0;
@@ -128,7 +139,6 @@ class UserController extends Controller
             $user->sex = isset($request->sex) ? $request->sex : $user->sex;
             $user->status = isset($request->status) ? $request->status : $user->status;
             $user->role_id = isset($request->userType) ? $request->userType : $user->role_id;
-            $user->class_id = isset($request->class) ? $request->class : $user->class_id;
             $user->username = isset($request->username) ? $request->username : $user->username;
             $user->identity_number = isset($request->identityNumber) ? $request->identityNumber : $user->identity_number;
             $user->firstname = isset($request->firstname) ? $request->firstname : $user->firstname;
@@ -136,7 +146,7 @@ class UserController extends Controller
             $user->lastname = isset($request->lastname) ? $request->lastname : $user->lastname;
             $user->email = isset($request->email) ? $request->email : $user->email;
             $user->photo_url = $request->hasFile('file') ? $this->uploadPhoto($request->file, $user->photo_url) : $user->photo_url;
-            $user->password = isset($request->password) ? $request->password : $user->password;
+            $user->password = isset($request->password) ? Hash::make($request->password) : $user->password;
             if ($user->update()) return 1;
             return 0;
         } else {
@@ -230,13 +240,13 @@ class UserController extends Controller
     }
 
     /**Date rotate function*/
-    public function DD_MM_YYYY_rotate($date)
+    public static function DD_MM_YYYY_rotate($date)
     {
         $rotate = explode('-', $date);
         return $rotate[2] . '-' . $rotate[1] . '-' . $rotate[0];
     }
 
-    public function uploadPhoto($file = null, $oldFile = null)
+    public static function uploadPhoto($file = null, $oldFile = null)
     {
         if ($file != null) {
             $fileName = 'user_' . uniqid() . '.' . $file->getClientOriginalExtension();
