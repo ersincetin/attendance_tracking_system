@@ -33,10 +33,11 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('createUser', [UserController::class, 'store']);
     Route::post('updateUser', [UserController::class, 'update']);
     Route::post('deleteUser', [UserController::class, 'destroy']);
-
     Route::get('profile', function (): View {
         return view('admin.profile.index');
     });
+    Route::get('teachers', [UserController::class, 'teachers']);
+    Route::get('student_affairs', [UserController::class, 'student_affairs']);
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy']);
 });
