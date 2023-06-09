@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserController;
+use Illuminate\View\View;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +26,18 @@ Route::get('/dashboard', function () {
 
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index']);
+
+    Route::get('users', [UserController::class, 'index']);
+    Route::post('getUser', [UserController::class, 'show']);
+    Route::post('usersDataTable', [UserController::class, 'dataTables']);
+    Route::post('createUser', [UserController::class, 'store']);
+    Route::post('updateUser', [UserController::class, 'update']);
+    Route::post('deleteUser', [UserController::class, 'destroy']);
+
+    Route::get('profile', function (): View {
+        return view('admin.profile.index');
+    });
+
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy']);
 });
 
