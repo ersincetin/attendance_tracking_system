@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\admin\StudentController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,16 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     });
     Route::get('teachers', [UserController::class, 'teachers']);
     Route::get('student_affairs', [UserController::class, 'student_affairs']);
+
+    Route::get('students', [StudentController::class, 'index']);
+    Route::prefix('student')->group(function () {
+        Route::post('dataTable', [StudentController::class, 'dataTables']);
+        Route::post('get', [StudentController::class, 'show']);
+        Route::post('create', [StudentController::class, 'store']);
+        Route::post('update', [StudentController::class, 'update']);
+        Route::post('delete', [StudentController::class, 'destroy']);
+    });
+
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy']);
 });
