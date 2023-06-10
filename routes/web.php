@@ -53,8 +53,13 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy']);
 });
 
-Route::prefix('login')->middleware('guest')->group(function () {
-    Route::get('/', [AuthenticatedSessionController::class, 'create']);
+Route::prefix('admin')->middleware('guest')->group(function () {
+    /**Route for Admin and Teacher*/
+    Route::get('login', [AuthenticatedSessionController::class, 'admin']);
+    Route::post('auth', [AuthenticatedSessionController::class, 'store']);
+});
+Route::prefix('student')->middleware('guest')->group(function () {
+    Route::get('login', [AuthenticatedSessionController::class, 'student']);
     Route::post('auth', [AuthenticatedSessionController::class, 'store']);
 });
 

@@ -4,7 +4,7 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            'url': '{{url('admin/auth')}}',
+            'url': '{{url('student/auth')}}',
             'async': true,
             'type': 'POST',
             'dataType': 'JSON',
