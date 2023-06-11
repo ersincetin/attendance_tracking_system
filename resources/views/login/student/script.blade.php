@@ -4,7 +4,7 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            'url': '{{url('admin/auth')}}',
+            'url': '{{url('student/auth')}}',
             'async': true,
             'type': 'POST',
             'dataType': 'JSON',
@@ -32,7 +32,7 @@
                             showConfirmButton: false,
                             timer: 2500
                         }).then(function (result) {
-                            window.location.replace('{{url("admin/dashboard")}}');
+                            window.location.replace('{{url("student/dashboard")}}');
                         });
                     }, 1500);
                 }

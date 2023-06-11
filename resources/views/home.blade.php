@@ -10,29 +10,38 @@
     <meta property="og:title" content="Öğrenci Devamsızlık Takip Sistemi"/>
     <meta property="og:url" content="{{url('/')}}"/>
     <meta property="og:site_name" content="Öğrenci Devamsızlık Takip Sistemi"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('Css')
 @endsection
 @section('Body')
-    <div class="login login-4 login-signin-on d-flex flex-row-fluid">
-        <div class="d-flex flex-center flex-row-fluid bgi-size-cover bgi-position-top bgi-no-repeat">
-            <div class="login-form text-center p-7 position-relative overflow-hidden">
-                <div class="d-flex flex-center mb-15">
-                    <a href="#">
-                        <img src="{{asset("media/logos/logo-letter-13.png")}}" class="max-h-75px" alt=""/>
-                    </a>
-                </div>
-                <div class="login-signin">
-                    <div class="mb-20">
-                        <h3>Sign In To Admin</h3>
-                        <div class="text-muted font-weight-bold">Enter your details to login to your account:</div>
+    <div class="login login-1 login-signin-on d-flex flex-column flex-lg-row flex-column-fluid  " id="kt_login">
+        <div class="d-flex flex-column flex-row-fluid position-relative p-7 overflow-hidden">
+            <div
+                class="position-absolute top-0 right-0 text-right mt-5 mb-15 mb-lg-0 flex-column-auto justify-content-center py-5 px-10">
+                <a href="{{url('student/login')}}" class="btn btn-outline-info font-weight-bold ml-2">Öğrenci Girişi</a>
+                <a href="{{url('admin/login')}}" class="btn btn-outline-primary font-weight-bold ml-2">Yetkili /
+                    Öğretmen Girişi</a>
+            </div>
+            <div class="d-flex flex-column-fluid flex-center mt-30 mt-lg-0">
+                <div class="col-12 col-sm-8 col-md-6 col-lg-6 col-xl-4">
+                    <div class="text-center mb-10 mb-lg-20">
+                        <h3 class="font-size-h1">Sign In</h3>
+                        <p class="text-muted font-weight-bold">Enter your username and password</p>
                     </div>
-                    <form class="form" name="search-form">
-                        <div class="form-group mb-5">
-                            <input class="form-control h-auto form-control-solid py-4 px-8" type="text"
-                                   placeholder="T.C. Kimlik Number" name="username" autocomplete="off"/>
+                    <form class="form" novalidate="novalidate">
+                        <div class="form-group mb-0">
+                            <input class="form-control form-control-solid h-auto py-5 px-6" type="text"
+                                   placeholder="Identitty Number" name="username" autocomplete="off"/>
                         </div>
-                        <button class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4">Search</button>
+                        {{--                        <div class="form-group">--}}
+                        {{--                            <input class="form-control form-control-solid h-auto py-5 px-6" type="password" placeholder="Password" name="password" autocomplete="off" />--}}
+                        {{--                        </div>--}}
+                        <div class="form-group d-flex flex-wrap justify-content-between align-items-center">
+                            <button type="button" id="kt_login_signin_submit"
+                                    class="btn btn-primary font-weight-bold px-9 py-4 my-3 mt-0 col-12">Sign In
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>

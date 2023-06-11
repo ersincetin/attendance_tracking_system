@@ -18,7 +18,7 @@
 @section('Body')
     <div class="login login-3 login-signin-on d-flex flex-row-fluid" id="kt_login">
         <div class="d-flex flex-center bgi-size-cover bgi-no-repeat flex-row-fluid"
-             style="background-image: url({{asset("media/bg/bg-2.jpg")}});">
+             style="background-image: url({{asset("media/bg/bg-6.jpg")}});">
             <div class="login-form text-center text-white p-7 position-relative overflow-hidden">
                 <div class="d-flex flex-center mb-15">
                     <a href="#">
@@ -33,12 +33,12 @@
                     <form class="form" name="sign-in-form" id="kt_login_signin_form">
                         <div class="form-group">
                             <input
-                                class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border border-amber-50 py-4 px-8 mb-5"
-                                type="text" placeholder="Email" name="email" autocomplete="off"/>
+                                class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 mb-5"
+                                type="text" placeholder="Identity Number" name="identity_number" autocomplete="off"/>
                         </div>
                         <div class="form-group">
                             <input
-                                class="form-control h-auto text-white placeholder-white opacity-50 bg-dark-o-50 rounded-pill border border-amber-50 py-4 px-8 mb-5"
+                                class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 mb-5"
                                 type="password" placeholder="Password" name="password" autocomplete="off"/>
                         </div>
                         <div class="form-group d-flex flex-wrap justify-content-between align-items-center px-8">
@@ -86,6 +86,6 @@
 @endsection
 @section('Javascript')
     <script src="{{asset("js/pages/custom/login/login-general.js")}}"></script>
-    @include("login.script")
+    @include("login.student.script")
 @endsection
 

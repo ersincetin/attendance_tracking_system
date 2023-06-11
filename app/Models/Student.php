@@ -12,7 +12,6 @@ class Student extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'students';
-
     /**
      * The attributes that are mass assignable.
      *
@@ -22,8 +21,6 @@ class Student extends Authenticatable
         'identity_number',
         'password',
     ];
-
-    protected $guard = 'student';
 
     /**
      * The attributes that should be hidden for serialization.
