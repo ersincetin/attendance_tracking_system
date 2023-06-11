@@ -1,6 +1,6 @@
 @extends('layouts.adminLayout')
 @section('Title')
-    @lang('container.user_detail')
+    @lang('body.user_detail')
 @endsection
 @section('Meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -12,10 +12,10 @@
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
             <div class="d-flex align-items-center flex-wrap mr-1">
                 <div class="d-flex align-items-baseline flex-wrap mr-5">
-                    <h5 class="text-dark font-weight-bold my-1 mr-5">@lang('container.profile')</h5>
+                    <h5 class="text-dark font-weight-bold my-1 mr-5">@lang('body.profile')</h5>
                     <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                         <li class="breadcrumb-item text-muted">
-                            <a href="javascript:;" class="text-muted">@lang('container.profile')</a>
+                            <a href="javascript:;" class="text-muted">@lang('body.profile')</a>
                         </li>
                     </ul>
                 </div>

@@ -7,11 +7,11 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            'url': '{{url('admin/getUser')}}',
+            'url': '{{url('admin/user/get')}}',
             'type': 'POST',
             'dataType': 'JSON',
             'data': {
-                id: 7
+                id: {{Auth::user()->id}}
             },
             beforeSend: function () {
             },
@@ -41,33 +41,11 @@
     $(document).on('click', '[name="save-btn"]', function () {
         /**Form Validation*/
         let i = 0;
-        // let formInput = $('[name="user-form"]')[0];
-        // $('.is-invalid').removeClass('is-invalid');
-        // $('.is-valid').removeClass('is-valid');
-        // for (let i = 0; i < formInput.length; i++) {
-        //     console.log(formInput[i].type);
-        //     if ((formInput[i].type == 'text' || formInput[i].type == 'email' || formInput[i].type == 'password')) {
-        //         if (formInput[i].value.length > 0 && formInput[i].required) {
-        //             formInput[i].classList.add('is-valid');
-        //         } else {
-        //             if (formInput[i].required) formInput[i].classList.add('is-invalid');
-        //         }
-        //     } else if (formInput[i].type == 'select-one') {
-        //         if (formInput[i].value > 0 || formInput[i].value != 0) {
-        //             formInput[i].classList.add('is-valid');
-        //         } else {
-        //             formInput[i].classList.add('is-invalid');
-        //         }
-        //     }
-        // }
-        // if ($('.is-invalid').length > 0) {
-        //     return;
-        // }
         let url;
         if ($('[name="userId"]').val().length > 0) {
-            url = '{{url('admin/updateUser')}}';
+            url = '{{url('admin/user/update')}}';
         } else {
-            url = '{{url('admin/createUser')}}';
+            url = '{{url('admin/user/create')}}';
         }
 
         /**Form Data Create*/

@@ -18,7 +18,7 @@
 
                 <div class="py-9">
                     <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="font-weight-bold mr-2">@lang('container.email')</span>
+                        <span class="font-weight-bold mr-2">@lang('body.email')</span>
                         <a href="#" class="text-muted text-hover-primary"><span name="email"></span></a>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                     <div class="navi-item mb-2">
                         <a href="javascript:;" class="navi-link py-4 active" data-label="information-field">
                             <span class="navi-icon mr-2"><i class="fas fa-user-circle fa-2x"></i></span>
-                            <span class="navi-text font-size-lg">@lang('container.personal_information')</span>
+                            <span class="navi-text font-size-lg">@lang('body.personal_information')</span>
                         </a>
                     </div>
                     <div class="navi-item mb-2">
@@ -41,12 +41,12 @@
     </div>
     <div class="flex-row-fluid ml-lg-8">
         <div class="card card-custom card-stretch">
-            <div class="card-header py-3">
+            <div class="card-header py-3 m-0 p-0">
                 <div class="card-title align-items-start flex-column">
                 </div>
-                <div class="card-toolbar">
-                    <button class="btn btn-outline-primary mr-2" name="save-btn">@lang('container.update')</button>
-{{--                    <button class="btn btn-outline-danger" name="cancel-btn">@lang('container.cancel')</button>--}}
+                <div class="card-toolbar m-1 p-1">
+                    <button class="btn btn-sm btn-outline-primary mr-2" name="save-btn">@lang('body.update')</button>
+{{--                    <button class="btn btn-outline-danger" name="cancel-btn">@lang('body.cancel')</button>--}}
                 </div>
             </div>
             <form class="form" name="user-form">
@@ -76,54 +76,54 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">@lang('container.sex')</label>
+                        <label class="col-xl-3 col-lg-3 col-form-label">@lang('body.sex')</label>
                         <div class="col-lg-9 col-xl-6">
                             <select class="form-control  form-control-solid" name="sex">
-                                <option value="0">@lang('container.choose')</option>
-                                <option value="M">@lang('container.male')</option>
-                                <option value="F">@lang('container.female')</option>
+                                <option value="0">@lang('body.choose')</option>
+                                <option value="M">@lang('body.male')</option>
+                                <option value="F">@lang('body.female')</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">@lang('container.username')</label>
+                        <label class="col-xl-3 col-lg-3 col-form-label">@lang('body.username')</label>
                         <div class="col-lg-9 col-xl-6">
                             <input class="form-control  form-control-solid" type="text"
-                                   placeholder="@lang('container.username')" name="username"/>
+                                   placeholder="@lang('body.username')" name="username"/>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">@lang('container.identity_number')</label>
+                        <label class="col-xl-3 col-lg-3 col-form-label">@lang('body.identity_number')</label>
                         <div class="col-lg-9 col-xl-6">
                             <input class="form-control  form-control-solid" type="text"
-                                   placeholder="@lang('container.identity_number')" name="identityNumber"/>
+                                   placeholder="@lang('body.identity_number')" name="identityNumber"/>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">@lang('container.name')</label>
+                        <label class="col-xl-3 col-lg-3 col-form-label">@lang('body.name')</label>
                         <div class="col-lg-9 col-xl-6 mr-0 pr-0 row">
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                                 <input class="form-control form-control-solid" type="text"
-                                       placeholder="@lang('container.firstname')" name="firstname"/>
+                                       placeholder="@lang('body.firstname')" name="firstname"/>
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mr-0 pr-0">
                                 <input class="form-control form-control-solid" type="text"
-                                       placeholder="@lang('container.second_name')" name="second_name"/>
+                                       placeholder="@lang('body.second_name')" name="second_name"/>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">@lang('container.lastname')</label>
+                        <label class="col-xl-3 col-lg-3 col-form-label">@lang('body.lastname')</label>
                         <div class="col-lg-9 col-xl-6">
                             <input class="form-control  form-control-solid" type="text"
-                                   placeholder="@lang('container.lastname')" name="lastname"/>
+                                   placeholder="@lang('body.lastname')" name="lastname"/>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label">@lang('container.email')</label>
+                        <label class="col-xl-3 col-lg-3 col-form-label">@lang('body.email')</label>
                         <div class="col-lg-9 col-xl-6">
                             <input class="form-control  form-control-solid" type="text"
-                                   placeholder="@lang('container.email')" name="email"/>
+                                   placeholder="@lang('body.email')" name="email"/>
                         </div>
                     </div>
                 </div>

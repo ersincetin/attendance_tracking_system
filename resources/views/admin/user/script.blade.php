@@ -13,7 +13,7 @@
                 'headers': {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                'url': "{{url("admin/usersDataTable")}}",
+                'url': "{{url("admin/user/dataTable")}}",
                 'data': function (data) {
                     data.userType = $('[name="users_datatable"]').attr('data-label')
                 },
@@ -82,7 +82,7 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            'url': '{{url('admin/getUser')}}',
+            'url': '{{url('admin/user/get')}}',
             'type': 'POST',
             'dataType': 'JSON',
             'data': {
@@ -118,9 +118,9 @@
 
         let url;
         if ($('[name="userId"]').val().length > 0) {
-            url = '{{url('admin/updateUser')}}';
+            url = '{{url('admin/user/update')}}';
         } else {
-            url = '{{url('admin/createUser')}}';
+            url = '{{url('admin/user/create')}}';
         }
 
         /**Form Data Create*/
@@ -185,7 +185,7 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    'url': '{{url('admin/deleteUser')}}',
+                    'url': '{{url('admin/user/delete')}}',
                     'type': 'POST',
                     'dataType': 'JSON',
                     'data': {
