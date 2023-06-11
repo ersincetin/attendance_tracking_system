@@ -4,17 +4,13 @@
     <title>@yield('Title')</title>
     @yield('Meta')
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>
-    <!--begin::Global Theme Styles(used by all pages)-->
     <link href="{{asset("plugins/global/plugins.bundle.css")}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset("plugins/custom/prismjs/prismjs.bundle.css")}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset("css/style.bundle.css")}}" rel="stylesheet" type="text/css"/>
-    <!--end::Global Theme Styles-->
-    <!--begin::Layout Themes(used by all pages)-->
     <link href="{{asset("css/themes/layout/header/base/light.css")}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset("css/themes/layout/header/menu/light.css")}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset("css/themes/layout/brand/dark.css")}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset("css/themes/layout/aside/dark.css")}}" rel="stylesheet" type="text/css"/>
-    <!--end::Layout Themes-->
     <link rel="shortcut icon" href="{{asset("media/logos/favicon.ico")}}"/>
     @yield('Css')
 </head>
@@ -115,7 +111,7 @@
                             <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                         </li>
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="{{url('admin/profile')}}" class="menu-link">
+                            <a href="{{url('admin/user/profile')}}" class="menu-link">
                                 <i class="menu-icon flaticon-avatar"></i>
                                 <span class="menu-text">Profile</span>
                             </a>
@@ -329,10 +325,10 @@
                                 class="btn btn-icon btn-icon-mobile w-auto btn-clean d-flex align-items-center btn-lg px-2"
                                 id="kt_quick_user_toggle">
                                 <span
-                                    class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,</span>
-                                <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">Sean</span>
-                                <span class="symbol symbol-lg-35 symbol-25 symbol-light-success">
-											<span class="symbol-label font-size-h5 font-weight-bold">S</span>
+                                    class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{Auth::user()->firstname}}</span>
+                                <span class="symbol symbol-lg-35 symbol-25 symbol-light-info">
+											<span
+                                                class="symbol-label font-size-h5 font-weight-bold">{{Auth::user()->firstname[0]}}</span>
 										</span>
                             </div>
                         </div>
@@ -548,11 +544,9 @@
         },
         "font-family": "Poppins"
     };</script>
-<!--begin::Global Theme Bundle(used by all pages)-->
 <script src="{{asset("plugins/global/plugins.bundle.js")}}"></script>
 <script src="{{asset("plugins/custom/prismjs/prismjs.bundle.js")}}"></script>
 <script src="{{asset("js/scripts.bundle.js")}}"></script>
-<!--end::Global Theme Bundle-->
 @include('generalJS.logout.logout')
 @include('generalJS.sweetAlert.alert')
 @yield('Javascript')

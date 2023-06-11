@@ -30,13 +30,15 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index']);
 
     Route::get('users', [UserController::class, 'index']);
-    Route::post('getUser', [UserController::class, 'show']);
-    Route::post('usersDataTable', [UserController::class, 'dataTables']);
-    Route::post('createUser', [UserController::class, 'store']);
-    Route::post('updateUser', [UserController::class, 'update']);
-    Route::post('deleteUser', [UserController::class, 'destroy']);
-    Route::get('profile', function (): View {
-        return view('admin.profile.index');
+    Route::prefix('user')->group(function () {
+        Route::get('profile', function (): View {
+            return view('admin.profile.index');
+        });
+        Route::post('get', [UserController::class, 'show']);
+        Route::post('dataTable', [UserController::class, 'dataTables']);
+        Route::post('create', [UserController::class, 'store']);
+        Route::post('update', [UserController::class, 'update']);
+        Route::post('delete', [UserController::class, 'destroy']);
     });
     Route::get('teachers', [UserController::class, 'teachers']);
     Route::get('student_affairs', [UserController::class, 'student_affairs']);
@@ -56,7 +58,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy']);
 });
 
-Route::prefix('student')->middleware('auth.student')->group(function (){
+Route::prefix('student')->middleware('auth.student')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index']);
 });
 
