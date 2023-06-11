@@ -3,27 +3,25 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\Auth\StudentLoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class AuthenticatedSessionController extends Controller
+class StudentAuthenticatedSessionController extends Controller
 {
     /**
      * Display the login view.
      */
     public function create(): View
     {
-        return view('login.index');
+        return view('login.student.index');
     }
 
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request)
+    public function store(StudentLoginRequest $request)
     {
         $request->authenticate();
 
@@ -38,7 +36,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        Auth::guard('web')->logout();
+        Auth::guard('student')->logout();
 
         $request->session()->invalidate();
 

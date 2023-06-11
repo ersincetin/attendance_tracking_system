@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\admin\StudentController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\StudentAuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
@@ -47,27 +48,26 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('create', [StudentController::class, 'store']);
         Route::post('update', [StudentController::class, 'update']);
         Route::post('delete', [StudentController::class, 'destroy']);
+
+        Route::post('logout', [StudentAuthenticatedSessionController::class, 'destroy']);
     });
 
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy']);
 });
 
+Route::prefix('student')->middleware('auth.student')->group(function (){
+    Route::get('dashboard', [DashboardController::class, 'index']);
+});
+
 Route::prefix('admin')->middleware('guest')->group(function () {
     /**Route for Admin and Teacher*/
-    Route::get('login', [AuthenticatedSessionController::class, 'admin']);
+    Route::get('login', [AuthenticatedSessionController::class, 'create']);
     Route::post('auth', [AuthenticatedSessionController::class, 'store']);
 });
 Route::prefix('student')->middleware('guest')->group(function () {
-    Route::get('login', [AuthenticatedSessionController::class, 'student']);
-    Route::post('auth', [AuthenticatedSessionController::class, 'store']);
-});
-
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('login', [StudentAuthenticatedSessionController::class, 'create']);
+    Route::post('auth', [StudentAuthenticatedSessionController::class, 'store']);
 });
 
 //require __DIR__ . '/auth.php';

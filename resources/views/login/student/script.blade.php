@@ -32,7 +32,7 @@
                             showConfirmButton: false,
                             timer: 2500
                         }).then(function (result) {
-                            window.location.replace('{{url("admin/dashboard")}}');
+                            window.location.replace('{{url("student/dashboard")}}');
                         });
                     }, 1500);
                 }

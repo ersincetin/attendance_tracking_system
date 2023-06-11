@@ -34,7 +34,7 @@
                         <div class="form-group">
                             <input
                                 class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 mb-5"
-                                type="text" placeholder="Email" name="email" autocomplete="off"/>
+                                type="text" placeholder="Identity Number" name="identity_number" autocomplete="off"/>
                         </div>
                         <div class="form-group">
                             <input
