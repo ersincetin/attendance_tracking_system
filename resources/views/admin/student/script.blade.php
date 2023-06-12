@@ -131,17 +131,17 @@
                 if (undefined != data) {
                     $('#student_modal').modal('hide');
                     if ($('[name="studentId"]').val().length > 0) {
-                        setAlert('success', '@lang('alert.user_update')', '@lang('alert.update_successfully')');
+                        setAlert('success', '@lang('alert.student_update')', '@lang('alert.update_successfully')');
                     } else {
-                        setAlert('success', '@lang('alert.user_add')', '@lang('alert.save_successfully')');
+                        setAlert('success', '@lang('alert.student_add')', '@lang('alert.save_successfully')');
                     }
                     reloadDataTable();
                 }
             }, error: function (data) {
                 if ($('[name="studentId"]').val().length > 0) {
-                    setAlert('error', '@lang('alert.user_update')', '@lang('alert.update_something_went_wrong')');
+                    setAlert('error', '@lang('alert.student_update')', '@lang('alert.update_something_went_wrong')');
                 } else {
-                    setAlert('error', '@lang('alert.user_add')', '@lang('alert.save_something_went_wrong')');
+                    setAlert('error', '@lang('alert.student_add')', '@lang('alert.save_something_went_wrong')');
                 }
             }
         });
@@ -191,71 +191,6 @@
                 });
             }
         });
-    }
-
-    /**Form Validate Function*/
-    function formValidate(formTagName) {
-        let formInput = $('[name="' + formTagName + '"]')[0];
-        $('.is-invalid').removeClass('is-invalid');
-        $('.is-valid').removeClass('is-valid');
-
-        /** Required Control */
-        for (let i = 0; i < formInput.length; i++) {
-            if ((formInput[i].type == 'text' || formInput[i].type == 'email')) {
-                if (formInput[i].value.length > 0 && formInput[i].required) {
-                    formInput[i].classList.add('is-valid');
-                    /** Identity Number Check*/
-                    if (formInput[i].name == 'identityNumber')
-                        if (!identityNumberControl(formInput[i].value)) {
-                            setAlert('error', 'Failed', 'Identity Number Failed');
-                            formInput[i].classList.add('is-invalid');
-                        }
-                } else {
-                    if (formInput[i].required) formInput[i].classList.add('is-invalid');
-                }
-            } else if (formInput[i].type == 'select-one') {
-                if (formInput[i].value > 0 || formInput[i].value != 0) {
-                    formInput[i].classList.add('is-valid');
-                } else {
-                    formInput[i].classList.add('is-invalid');
-                }
-            }
-        }
-    }
-
-    function setRequiredDangerText(formTagName) {
-        let formInput = $('[name="' + formTagName + '"]')[0];
-        for (let i = 0; i < formInput.length; i++) {
-            if ((formInput[i].type == 'text' || formInput[i].type == 'email')) {
-                if (formInput[i].required) $('[name="' + formInput[i].getAttribute('name') + '-label"]').html($('[name="' + formInput[i].getAttribute('name') + '-label"]').html() + ' <span class="text-danger">*</span>');
-            }
-        }
-    }
-
-    /**Identity Number Control Function*/
-    function identityNumberControl(identityNumber) {
-
-        if (identityNumber.length != 11) return false;
-        if (isNaN(identityNumber)) return false;
-        if (identityNumber[0] == 0) return false;
-
-        let odd = 0, even = 0, result = 0, digitTotal = 0;
-        let errorList = [11111111110, 22222222220, 33333333330, 44444444440, 55555555550, 66666666660, 7777777770, 88888888880, 99999999990];
-        odd = parseInt(identityNumber[0]) + parseInt(identityNumber[2]) + parseInt(identityNumber[4]) + parseInt(identityNumber[6]) + parseInt(identityNumber[8]);
-        even = parseInt(identityNumber[1]) + parseInt(identityNumber[3]) + parseInt(identityNumber[5]) + parseInt(identityNumber[7]);
-
-        odd = odd * 7;
-        result = Math.abs(odd - even);
-        if (result % 10 != identityNumber[9]) return false;
-
-        for (let i = 0; i < 10; i++) {
-            digitTotal += parseInt(identityNumber[i]);
-        }
-        if (digitTotal % 10 != identityNumber[10]) return false;
-
-        if (errorList.toString().indexOf(identityNumber) != -1) return false;
-
-        return true;
     }
 
     /**DataTable reload function*/

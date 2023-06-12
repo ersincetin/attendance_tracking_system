@@ -39,5 +39,8 @@
     @include("admin.student.script")
     @include("admin.student.multiStudentScript")
     @include("generalJS.sweetAlert.alert")
+    @include("generalJS.identityNumberControl.script")
+    @include("generalJS.formValidation.script")
+    @include("generalJS.requiredControl.script")
 @endsection
 

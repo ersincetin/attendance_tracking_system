@@ -61,7 +61,7 @@
                     </div>
                     <div class="form-group mb-0 pb-0">
                         <label name="identityNumber-label">@lang('body.identity_number'): </label>
-                        <input type="text" class="form-control form-control-solid" name="identityNumber" required
+                        <input type="text" class="form-control form-control-solid" name="identityNumber"
                                placeholder="Enter @lang('body.identity_number')"/>
                     </div>
                     <div class="form-group mb-0 pb-0 row">
