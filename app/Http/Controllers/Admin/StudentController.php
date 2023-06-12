@@ -56,7 +56,7 @@ class StudentController extends Controller
                 'class_id' => isset($request->classId) ? $request->classId : null,
                 'identity_number' => isset($request->identityNumber) ? $request->identityNumber : null,
                 'firstname' => isset($request->firstname) ? $request->firstname : null,
-                'second_name' => isset($request->second_name) ? $request->second_name : null,
+                'second_name' => isset($request->secondName) ? $request->secondName : null,
                 'lastname' => isset($request->lastname) ? $request->lastname : null,
                 'email' => isset($request->email) ? $request->email : null,
                 'photo_url' => $request->hasFile('file') ? $this->uploadPhoto($request->file) : null,
@@ -101,7 +101,7 @@ class StudentController extends Controller
             $student->status = isset($request->status) ? $request->status : $student->status;
             $student->identity_number = isset($request->identityNumber) ? $request->identityNumber : $student->identity_number;
             $student->firstname = isset($request->firstname) ? $request->firstname : $student->firstname;
-            $student->second_name = isset($request->second_name) ? $request->second_name : $student->second_name;
+            $student->second_name = isset($request->secondName) ? $request->secondName : null;
             $student->lastname = isset($request->lastname) ? $request->lastname : $student->lastname;
             $student->email = isset($request->email) ? $request->email : $student->email;
             $student->photo_url = $request->hasFile('file') ? $this->uploadPhoto($request->file, $student->photo_url) : $student->photo_url;
