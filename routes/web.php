@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Setting\ClassController;
+use App\Http\Controllers\Admin\Setting\LessonController;
 use App\Http\Controllers\Admin\Setting\RoleController;
 use App\Http\Controllers\admin\StudentController;
 use App\Http\Controllers\Admin\UserController;
@@ -65,6 +67,24 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
             Route::get('permission/{id}', [RoleController::class, 'permission']);
             Route::post('permission/update', [RoleController::class, 'permissionUpdate']);
+        });
+
+        Route::prefix('class')->group(function (){
+            Route::get('/', [ClassController::class, 'index']);
+            Route::post('dataTable', [ClassController::class, 'dataTables']);
+            Route::post('get', [ClassController::class, 'show']);
+            Route::post('create', [ClassController::class, 'store']);
+            Route::post('update', [ClassController::class, 'update']);
+            Route::post('delete', [ClassController::class, 'destroy']);
+        });
+
+        Route::prefix('lesson')->group(function (){
+            Route::get('/', [LessonController::class, 'index']);
+            Route::post('dataTable', [LessonController::class, 'dataTables']);
+            Route::post('get', [LessonController::class, 'show']);
+            Route::post('create', [LessonController::class, 'store']);
+            Route::post('update', [LessonController::class, 'update']);
+            Route::post('delete', [LessonController::class, 'destroy']);
         });
 
     });

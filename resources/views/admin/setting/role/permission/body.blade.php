@@ -291,16 +291,16 @@
                     <div id="collapseFive" class="collapse" data-parent="#accordionExample">
                         <div class="card-body">
                             <div class="col-12">
-                                <div class="accordion accordion-solid accordion-toggle-plus" id="accordionExample3">
+                                <div class="accordion accordion-solid accordion-toggle-plus" id="accordionSubExample">
                                     <div class="card">
-                                        <div class="card-header" id="headingOne3">
+                                        <div class="card-header" id="headingSubOne">
                                             <div class="card-title" data-toggle="collapse"
-                                                 data-target="#collapseOne3">
-                                                Roles
+                                                 data-target="#collapseSubOne">
+                                                @lang('body.role')
                                             </div>
                                         </div>
-                                        <div id="collapseOne3" class="collapse show"
-                                             data-parent="#accordionExample3">
+                                        <div id="collapseSubOne" class="collapse show"
+                                             data-parent="#accordionSubExample">
                                             <div class="card-body">
                                                 <div class="form-group row" name="setting-role-all-check">
                                                     <div class="col-auto col-form-label">
@@ -372,13 +372,13 @@
                                         </div>
                                     </div>
                                     <div class="card">
-                                        <div class="card-header" id="headingTwo3">
+                                        <div class="card-header" id="headingSubTwo">
                                             <div class="card-title collapsed" data-toggle="collapse"
-                                                 data-target="#collapseTwo3">
-                                                Period
+                                                 data-target="#collapseSubTwo">
+                                                @lang('body.period')
                                             </div>
                                         </div>
-                                        <div id="collapseTwo3" class="collapse" data-parent="#accordionExample3">
+                                        <div id="collapseSubTwo" class="collapse" data-parent="#accordionSubExample">
                                             <div class="card-body">
                                                 <div class="form-group row" name="setting-period-all-check">
                                                     <div class="col-auto col-form-label">
@@ -439,6 +439,162 @@
                                                                 class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
                                                                 <input type="checkbox" name="deleting"
                                                                        data-label="setting-period"/>
+                                                                <span></span>
+                                                                Deleting
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header" id="headingSubThree">
+                                            <div class="card-title collapsed" data-toggle="collapse"
+                                                 data-target="#collapseSubThree">
+                                                @lang('body.class')
+                                            </div>
+                                        </div>
+                                        <div id="collapseSubThree" class="collapse" data-parent="#accordionSubExample">
+                                            <div class="card-body">
+                                                <div class="form-group row" name="setting-class-all-check">
+                                                    <div class="col-auto col-form-label">
+                                                        <div class="checkbox-inline">
+                                                            <span class="text text-sm font-size-xs ml-3"
+                                                                  name="user"><i
+                                                                    class="la la-check-square la-2x text-primary"
+                                                                    data-label="setting-class-all-check"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto col-form-label">
+                                                        <div class="checkbox-inline">
+                                                            <label
+                                                                class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                                                                <input type="checkbox" name="reading"
+                                                                       data-label="setting-class"/>
+                                                                <span></span>
+                                                                Reading
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto col-form-label">
+                                                        <div class="checkbox-inline">
+                                                            <label
+                                                                class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                                                                <input type="checkbox" name="listening"
+                                                                       data-label="setting-class"/>
+                                                                <span></span>
+                                                                Listening
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto col-form-label">
+                                                        <div class="checkbox-inline">
+                                                            <label
+                                                                class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                                                                <input type="checkbox" name="creating"
+                                                                       data-label="setting-class"/>
+                                                                <span></span>
+                                                                Creating
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto col-form-label">
+                                                        <div class="checkbox-inline">
+                                                            <label
+                                                                class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                                                                <input type="checkbox" name="updating"
+                                                                       data-label="setting-class"/>
+                                                                <span></span>
+                                                                Updating
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto col-form-label">
+                                                        <div class="checkbox-inline">
+                                                            <label
+                                                                class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                                                                <input type="checkbox" name="deleting"
+                                                                       data-label="setting-class"/>
+                                                                <span></span>
+                                                                Deleting
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header" id="headingSubFour">
+                                            <div class="card-title collapsed" data-toggle="collapse"
+                                                 data-target="#collapseSubFour">
+                                                @lang('body.lesson')
+                                            </div>
+                                        </div>
+                                        <div id="collapseSubFour" class="collapse" data-parent="#accordionSubExample">
+                                            <div class="card-body">
+                                                <div class="form-group row" name="setting-lesson-all-check">
+                                                    <div class="col-auto col-form-label">
+                                                        <div class="checkbox-inline">
+                                                            <span class="text text-sm font-size-xs ml-3"
+                                                                  name="user"><i
+                                                                    class="la la-check-square la-2x text-primary"
+                                                                    data-label="setting-lesson-all-check"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto col-form-label">
+                                                        <div class="checkbox-inline">
+                                                            <label
+                                                                class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                                                                <input type="checkbox" name="reading"
+                                                                       data-label="setting-lesson"/>
+                                                                <span></span>
+                                                                Reading
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto col-form-label">
+                                                        <div class="checkbox-inline">
+                                                            <label
+                                                                class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                                                                <input type="checkbox" name="listening"
+                                                                       data-label="setting-lesson"/>
+                                                                <span></span>
+                                                                Listening
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto col-form-label">
+                                                        <div class="checkbox-inline">
+                                                            <label
+                                                                class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                                                                <input type="checkbox" name="creating"
+                                                                       data-label="setting-lesson"/>
+                                                                <span></span>
+                                                                Creating
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto col-form-label">
+                                                        <div class="checkbox-inline">
+                                                            <label
+                                                                class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                                                                <input type="checkbox" name="updating"
+                                                                       data-label="setting-lesson"/>
+                                                                <span></span>
+                                                                Updating
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto col-form-label">
+                                                        <div class="checkbox-inline">
+                                                            <label
+                                                                class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                                                                <input type="checkbox" name="deleting"
+                                                                       data-label="setting-lesson"/>
                                                                 <span></span>
                                                                 Deleting
                                                             </label>

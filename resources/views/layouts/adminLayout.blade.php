@@ -214,7 +214,7 @@
                                             <i class="menu-bullet menu-bullet-dot">
                                                 <span></span>
                                             </i>
-                                            <span class="menu-text">Definations</span>
+                                            <span class="menu-text">@lang('body.description')</span>
                                             <i class="menu-arrow"></i>
                                         </a>
                                         <div class="menu-submenu">
@@ -225,15 +225,23 @@
                                                         <i class="menu-bullet menu-bullet-dot">
                                                             <span></span>
                                                         </i>
-                                                        <span class="menu-text">Role</span>
+                                                        <span class="menu-text">@lang('body.role')</span>
                                                     </a>
                                                 </li>
                                                 <li class="menu-item" aria-haspopup="true">
-                                                    <a href="custom/apps/user/list-datatable.html" class="menu-link">
+                                                    <a href="{{url('admin/settings/class')}}" class="menu-link">
                                                         <i class="menu-bullet menu-bullet-dot">
                                                             <span></span>
                                                         </i>
-                                                        <span class="menu-text">Donem</span>
+                                                        <span class="menu-text">@lang('body.class')</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-item" aria-haspopup="true">
+                                                    <a href="{{url('admin/settings/lesson')}}" class="menu-link">
+                                                        <i class="menu-bullet menu-bullet-dot">
+                                                            <span></span>
+                                                        </i>
+                                                        <span class="menu-text">@lang('body.lesson')</span>
                                                     </a>
                                                 </li>
                                             </ul>

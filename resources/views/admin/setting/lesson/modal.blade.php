@@ -1,4 +1,4 @@
-<div class="modal fade" name="role-modal" data-backdrop="static" tabindex="-1" role="dialog"
+<div class="modal fade" name="lesson-modal" data-backdrop="static" tabindex="-1" role="dialog"
      aria-labelledby="staticBackdrop" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -9,8 +9,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form" name="role-form" method="POST">
-                    <input type="hidden" name="roleId">
+                <form class="form" name="lesson-form" method="POST">
+                    <input type="hidden" name="lessonId">
                     <div class="row">
                         <div class="col-auto">
                             <div class="form-group mb-0 pb-0">
@@ -29,9 +29,9 @@
                         </div>
                         <div class="col-10">
                             <div class="form-group mb-0 pb-0">
-                                <label name="roleName-label">@lang('body.name'): </label>
-                                <input type="text" class="form-control form-control-solid" name="roleName" required
-                                       placeholder="Enter @lang('body.role_name')"/>
+                                <label name="className-label">@lang('body.name'): </label>
+                                <input type="text" class="form-control form-control-solid" name="lessonName" required
+                                       placeholder="Enter @lang('body.lesson_name')"/>
                             </div>
                         </div>
                     </div>
