@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Setting\RoleController;
 use App\Http\Controllers\admin\StudentController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\StudentAuthenticatedSessionController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\UserController;
 use Illuminate\View\View;
 
 /*
@@ -54,6 +54,20 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('logout', [StudentAuthenticatedSessionController::class, 'destroy']);
     });
 
+    Route::prefix('settings')->group(function () {
+        Route::prefix('role')->group(function () {
+            Route::get('/', [RoleController::class, 'index']);
+            Route::post('dataTable', [RoleController::class, 'dataTables']);
+            Route::post('get', [RoleController::class, 'show']);
+            Route::post('create', [RoleController::class, 'store']);
+            Route::post('update', [RoleController::class, 'update']);
+            Route::post('delete', [RoleController::class, 'destroy']);
+
+            Route::get('permission/{id}', [RoleController::class, 'permission']);
+            Route::post('permission/update', [RoleController::class, 'permissionUpdate']);
+        });
+
+    });
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy']);
 });

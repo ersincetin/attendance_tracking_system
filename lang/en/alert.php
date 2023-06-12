@@ -15,7 +15,7 @@ return [
     'update_something_went_wrong'=>'An error occurred while updating.',
     'save_something_went_wrong'=>'An error occurred while saving.',
     'delete_something_went_wrong'=>'An error occurred while deleting.',
-    ''=>'',
+    'role_permission_update'=>'Role Permission Updated.',
     ''=>'',
     ''=>'',
     ''=>'',
