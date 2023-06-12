@@ -201,17 +201,43 @@
                         </li>
                         <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                             <a href="javascript:;" class="menu-link menu-toggle">
-                                <i class="menu-icon flaticon-layers"></i>
+                                <i class="menu-icon flaticon-settings-1"></i>
                                 <span class="menu-text">Settings</span>
                                 <i class="menu-arrow"></i>
                             </a>
                             <div class="menu-submenu">
                                 <i class="menu-arrow"></i>
                                 <ul class="menu-subnav">
-                                    <li class="menu-item menu-item-parent" aria-haspopup="true">
-												<span class="menu-link">
-													<span class="menu-text">Subheaders</span>
-												</span>
+                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                        data-menu-toggle="hover">
+                                        <a href="javascript:;" class="menu-link menu-toggle">
+                                            <i class="menu-bullet menu-bullet-dot">
+                                                <span></span>
+                                            </i>
+                                            <span class="menu-text">Definations</span>
+                                            <i class="menu-arrow"></i>
+                                        </a>
+                                        <div class="menu-submenu">
+                                            <i class="menu-arrow"></i>
+                                            <ul class="menu-subnav">
+                                                <li class="menu-item" aria-haspopup="true">
+                                                    <a href="{{url('admin/settings/role')}}" class="menu-link">
+                                                        <i class="menu-bullet menu-bullet-dot">
+                                                            <span></span>
+                                                        </i>
+                                                        <span class="menu-text">Role</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-item" aria-haspopup="true">
+                                                    <a href="custom/apps/user/list-datatable.html" class="menu-link">
+                                                        <i class="menu-bullet menu-bullet-dot">
+                                                            <span></span>
+                                                        </i>
+                                                        <span class="menu-text">Donem</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </li>
                                     <li class="menu-item" aria-haspopup="true">
                                         <a href="layout/subheader/toolbar.html" class="menu-link">
@@ -227,30 +253,6 @@
                                                 <span></span>
                                             </i>
                                             <span class="menu-text">Actions Buttons</span>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item" aria-haspopup="true">
-                                        <a href="layout/subheader/tabbed.html" class="menu-link">
-                                            <i class="menu-bullet menu-bullet-dot">
-                                                <span></span>
-                                            </i>
-                                            <span class="menu-text">Tabbed Nav</span>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item" aria-haspopup="true">
-                                        <a href="layout/subheader/classic.html" class="menu-link">
-                                            <i class="menu-bullet menu-bullet-dot">
-                                                <span></span>
-                                            </i>
-                                            <span class="menu-text">Classic</span>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item" aria-haspopup="true">
-                                        <a href="layout/subheader/none.html" class="menu-link">
-                                            <i class="menu-bullet menu-bullet-dot">
-                                                <span></span>
-                                            </i>
-                                            <span class="menu-text">None</span>
                                         </a>
                                     </li>
                                 </ul>
