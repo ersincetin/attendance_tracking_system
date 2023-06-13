@@ -172,7 +172,7 @@
     $(document).on('click', '[name="assigning_course-save-btn"]', function () {
         let courseList = {};
         $('[name="assigning-course-form"] input:checkbox').each(function () {
-            courseList[this.name] = this.checked ? 1 : 0;
+            if (this.checked) courseList[this.name] = 1;
         });
         $.ajax({
             headers: {
@@ -250,7 +250,7 @@
                 if (undefined != data.assigning_course && null != data.assigning_course) {
                     Object.entries(JSON.parse(data.assigning_course)).forEach(entry => {
                         const [key, value] = entry;
-                        $('[name="assigning-course-form"] input:checkbox[name="' + key + '"]').prop('checked',(value == 1 ? true : false));
+                        $('[name="assigning-course-form"] input:checkbox[name="' + key + '"]').prop('checked', (value == 1 ? true : false));
                     });
                 }
             }, error: function (data) {

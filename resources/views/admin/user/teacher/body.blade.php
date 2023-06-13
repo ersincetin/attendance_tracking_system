@@ -12,18 +12,18 @@
     <div class="card-body m-1 p-1">
         <div
             class="table-responsive table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-responsive-xxl">
-            <table class="table table-striped table-hover" name="users_datatable" data-label="teacher">
+            <table class="table table-striped table-hover table-light-primary nowrap" name="users_datatable" data-label="teacher">
                 <thead>
                 <tr>
-                    <th>#</th>
-                    <th class="d-none">@lang('body.role')</th>
-                    <th class="d-none">@lang('body.class_name')</th>
+                    <th class="w-5px">#</th>
+                    <th class="w-5px">@lang('body.status')</th>
+                    <th class="w-10px">@lang('body.role')</th>
+                    <th>@lang('body.assigned_class')</th>
                     <th>@lang('body.username')</th>
                     <th>@lang('body.full_name')</th>
                     <th>@lang('body.email')</th>
-                    <th>@lang('body.status')</th>
-                    <th>@lang('body.created_at')</th>
-                    <th>@lang('body.edit')</th>
+                    <th class="w-125px">@lang('body.created_at')</th>
+                    <th class="w-100px">@lang('body.edit')</th>
                 </tr>
                 </thead>
                 <tbody></tbody>

@@ -23,7 +23,7 @@ return [
     'class_delete' => 'Sınıf Silme',
     'course_delete' => 'Ders silme',
     'assigning_course_update' => 'Ders Atama Güncellemesi',
-    '' => '',
+    'assigning_class_update' => 'Sınıf Atama Güncellemesi',
     '' => '',
     '' => '',
     '' => '',

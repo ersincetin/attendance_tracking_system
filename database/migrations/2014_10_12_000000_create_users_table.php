@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->smallInteger('status');
             $table->integer('role_id');
+            $table->string('assigning_class');
             $table->string('sex', 1);
             $table->string('identity_number', 11)->unique()->nullable();
             $table->string('firstname', 32);

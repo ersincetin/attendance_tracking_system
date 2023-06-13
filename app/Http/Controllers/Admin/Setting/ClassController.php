@@ -58,6 +58,16 @@ class ClassController extends Controller
         }
     }
 
+    /** Get Class List*/
+    public function list(Request $request)
+    {
+        if ($request->ajax()) {
+            return Classes::all();
+        } else {
+            echo "Sadece AJAX sorgular için";
+        }
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -164,7 +174,7 @@ class ClassController extends Controller
     {
         if ($request->ajax()) {
             $class = Classes::where('id', $request->classId)->first();
-            $class->assigning_course = isset($request->courseList) ? $request->courseList : $class->assigning_course;
+            $class->assigning_course = isset($request->courseList) ? $request->courseList : null;
             if ($class->update()) return 1;
             return 0;
         } else {

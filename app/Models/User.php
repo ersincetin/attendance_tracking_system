@@ -21,7 +21,7 @@ class User extends Authenticatable
         'id',
         'status',
         'role_id',
-        'class_id',
+        'assigning_class',
         'sex',
         'identity_number',
         'username',

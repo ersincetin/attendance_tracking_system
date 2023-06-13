@@ -23,12 +23,12 @@
             },
             'columns': [
                 {data: 'orderNumber'},
-                {data: 'roleName'},
-                {data: 'className'},
-                {data: 'username'},
-                {data: 'fullname'},
-                {data: 'email'},
                 {data: 'status'},
+                {data: 'roleName'},
+                {data: 'assignedClasses'},
+                {data: 'username'},
+                {data: 'fullName'},
+                {data: 'email'},
                 {data: 'createdAt'},
                 {
                     data: 'edit',
@@ -38,23 +38,23 @@
                 }
             ]
         });
-        switch ($('[name="users_datatable"]').attr('data-label')) {
-            case 'teacher':
-                userDataTable.column(1).visible(false);
-                userDataTable.column(2).visible(false);
-                break;
-            case 'student-affairs':
-                userDataTable.column(1).visible(false);
-                userDataTable.column(2).visible(false);
-                break;
-            case 'student':
-                userDataTable.column(1).visible(false);
-                userDataTable.column(2).visible(true);
-                break;
-            default:
-                userDataTable.column(1).visible(true);
-                userDataTable.column(2).visible(false);
-        }
+        // switch ($('[name="users_datatable"]').attr('data-label')) {
+        //     case 'teacher':
+        //         userDataTable.column(1).visible(false);
+        //         userDataTable.column(2).visible(false);
+        //         break;
+        //     case 'student-affairs':
+        //         userDataTable.column(1).visible(false);
+        //         userDataTable.column(2).visible(false);
+        //         break;
+        //     case 'student':
+        //         userDataTable.column(1).visible(false);
+        //         userDataTable.column(2).visible(true);
+        //         break;
+        //     default:
+        //         userDataTable.column(1).visible(true);
+        //         userDataTable.column(2).visible(false);
+        // }
 
         setRequiredDangerText('user-form');
     });
