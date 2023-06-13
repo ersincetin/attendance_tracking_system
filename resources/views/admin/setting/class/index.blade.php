@@ -32,6 +32,7 @@
 @endsection
 @section('Modal')
     @include('admin.setting.class.modal')
+    @include('admin.setting.class.assigningCourseModal')
 @endsection
 @section('Javascript')
     <script src="{{asset("plugins/custom/datatables/datatables.bundle.js")}}"></script>

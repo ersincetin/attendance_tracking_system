@@ -4,20 +4,20 @@
             &nbsp;
         </div>
         <div class="card-toolbar">
-            <a href="javascript:;" class="btn btn-light-primary font-weight-bolder" name="role-add-btn">
-                <i class="fas fa fa-user-plus"></i> @lang('body.role_add')
+            <a href="javascript:;" class="btn btn-light-primary font-weight-bolder" name="course-add-btn">
+                <i class="fas fa fa-plus"></i> @lang('body.course_add')
             </a>
         </div>
     </div>
     <div class="card-body m-1 p-1">
         <div
             class="table-responsive table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-responsive-xxl">
-            <table class="table table-striped table-hover table-light-primary nowrap" name="role_datatable" data-label="role">
+            <table class="table table-striped table-hover table-light-primary nowrap" name="course_datatable" data-label="course">
                 <thead>
                 <tr>
                     <th class="w-5px">#</th>
                     <th class="w-5px">@lang('body.status')</th>
-                    <th>@lang('body.role_name')</th>
+                    <th class="w-auto">@lang('body.course_name')</th>
                     <th class="w-125px">@lang('body.created_at')</th>
                     <th class="w-100px">@lang('body.actions')</th>
                 </tr>

@@ -12,14 +12,15 @@
     <div class="card-body m-1 p-1">
         <div
             class="table-responsive table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl table-responsive-xxl">
-            <table class="table table-striped table-hover" name="class_datatable" data-label="class">
+            <table class="table table-striped table-hover nowrap table-light-primary" name="class_datatable" data-label="class">
                 <thead>
                 <tr>
-                    <th>#</th>
-                    <th>@lang('body.status')</th>
+                    <th class="w-5px">#</th>
+                    <th class="w-5px">@lang('body.status')</th>
                     <th>@lang('body.class_name')</th>
-                    <th>@lang('body.created_at')</th>
-                    <th>@lang('body.actions')</th>
+                    <th>@lang('body.assigned_courses')</th>
+                    <th class="w-125px">@lang('body.created_at')</th>
+                    <th class="w-100px">@lang('body.actions')</th>
                 </tr>
                 </thead>
                 <tbody></tbody>
