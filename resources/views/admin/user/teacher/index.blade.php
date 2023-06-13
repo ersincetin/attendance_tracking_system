@@ -30,10 +30,15 @@
 @endsection
 @section('Modal')
     @include("admin.user.teacher.modal")
+    @include("admin.user.teacher.assigningClassModal")
 @endsection
 @section('Javascript')
     <script src="{{asset("plugins/custom/datatables/datatables.bundle.js")}}"></script>
     @include("generalJS.sweetAlert.alert")
     @include("admin.user.script")
+    @include("admin.user.teacher.script")
+    @include("generalJS.formValidation.script")
+    @include("generalJS.requiredControl.script")
+    @include("generalJS.identityNumberControl.script")
 @endsection
 

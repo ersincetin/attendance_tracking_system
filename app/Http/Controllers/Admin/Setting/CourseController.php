@@ -57,6 +57,7 @@ class CourseController extends Controller
         }
     }
 
+    /** Get Class List*/
     public function list(Request $request)
     {
         if ($request->ajax()) {

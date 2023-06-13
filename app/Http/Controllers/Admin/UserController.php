@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Classes;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
 
@@ -212,12 +214,13 @@ class UserController extends Controller
                 $row = array();
                 $row['id'] = $user->id;
                 $row['orderNumber'] = $i++;
-                $row['roleName'] = $user->role_name;
-                $row['className'] = $user->class_id;
-                $row['username'] = $user->username;
-                $row['fullname'] = $user->firstname . ' ' . $user->second_name . ' ' . $user->lastname;
-                $row['email'] = $user->email;
                 $row['status'] = $user->status;
+                $row['roleName'] = $user->role_name;
+                $row['roleId'] = $user->role_id;
+                $row['assignedClasses'] = $user->assigning_class;
+                $row['username'] = $user->username;
+                $row['fullName'] = $user->firstname . ' ' . $user->second_name . ' ' . $user->lastname;
+                $row['email'] = $user->email;
                 $row['createdAt'] = $this->DD_MM_YYYY_rotate(substr(date($user->created_at), 0, 10)) . substr(date($user->created_at), 10);
                 $row['edit'] = "";
                 $data[] = $row;
@@ -226,16 +229,56 @@ class UserController extends Controller
                 ->editColumn('status', function ($data) {
                     return $data['status'] ? '<i class="fas fa-check-circle text-success"></i>' : '<i class="far fa-times-circle text-danger"></i>';
                 })
+                ->editColumn('assignedClasses', function ($data) {
+                    $classIdList = !is_null($data['assignedClasses']) ? json_decode($data['assignedClasses'], true) : null;
+                    $list = array();
+                    $html = '';
+                    if (!is_null($classIdList)) {
+                        foreach ($classIdList as $key => $value)
+                            if ($value == 1) array_push($list, $key);
+                    }
+                    if (count($list) > 0) {
+                        $classes = Classes::whereIn('id', $list)
+                            ->orderBy('id')
+                            ->get();
+                        if (count($classes) > 0) {
+                            foreach ($classes as $class) {
+                                $html .= '<button class="btn font-weight-bold btn-light-primary mr-2">' . $class->name . '</button>';
+                            }
+                        }
+                    }
+                    return $html;
+                })
                 ->editColumn('edit', function ($data) {
+                    if ($data['roleId'] == 4) {
+                        return '
+                        <a href="javascript:;" class="btn btn-sm btn-icon text-primary" onclick="edit_user(' . $data['id'] . ')" title="' . Lang::get('body.edit') . '"><i class="fas fa fa-user-edit text-warning"></i></a>
+                        <a href="javascript:;" class="btn btn-sm btn-icon text-primary" onclick="assigning_class(' . $data['id'] . ')" title="' . Lang::get('body.assigning_class') . '"><i class="fas fa fa-compass text-info"></i></a>
+                        <a href="javascript:;" class="btn btn-sm btn-icon" onclick="delete_user(' . $data['id'] . ')" title="' . Lang::get('body.delete') . '"><i class="fas fa fa-trash text-danger"></i></a>
+                    ';
+                    }
                     return '
-                        <a href="javascript:;" class="btn btn-sm btn-icon text-primary" onclick="edit_user(' . $data['id'] . ')"><i class="fas fa fa-user-edit text-warning"></i></a>
-                        <a href="javascript:;" class="btn btn-sm btn-icon" id="user-delete" onclick="delete_user(' . $data['id'] . ')"><i class="fas fa fa-trash text-danger"></i></a>
+                        <a href="javascript:;" class="btn btn-sm btn-icon text-primary" onclick="edit_user(' . $data['id'] . ')" title="' . Lang::get('body.edit') . '"><i class="fas fa fa-user-edit text-warning"></i></a>
+                        <a href="javascript:;" class="btn btn-sm btn-icon" onclick="delete_user(' . $data['id'] . ')" title="' . Lang::get('body.delete') . '"><i class="fas fa fa-trash text-danger"></i></a>
                     ';
                 })
-                ->rawColumns(['status', 'edit'])
+                ->rawColumns(['status', 'assignedClasses', 'edit'])
                 ->make(true);
         } else {
             echo "Sadece AJAX sorgusunda kullanılır.";
+        }
+    }
+
+
+    public function setAssigningClass(Request $request)
+    {
+        if ($request->ajax()) {
+            $user = User::where('id', $request->userId)->first();
+            $user->assigning_class = isset($request->classList) ? $request->classList : null;
+            if ($user->update()) return 1;
+            return 0;
+        } else {
+            echo "Sadece AJAX sorgular için";
         }
     }
 

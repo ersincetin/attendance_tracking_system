@@ -41,6 +41,8 @@ Route::prefix('admin')->group(function () {
         Route::post('create', [UserController::class, 'store']);
         Route::post('update', [UserController::class, 'update']);
         Route::post('delete', [UserController::class, 'destroy']);
+
+        Route::post('setAssigningClass', [UserController::class, 'setAssigningClass']);
     });
     Route::get('teachers', [UserController::class, 'teachers']);
     Route::get('student_affairs', [UserController::class, 'student_affairs']);
@@ -73,6 +75,7 @@ Route::prefix('admin')->group(function () {
             Route::get('/', [ClassController::class, 'index']);
             Route::post('dataTable', [ClassController::class, 'dataTables']);
             Route::post('get', [ClassController::class, 'show']);
+            Route::post('getList', [ClassController::class, 'list']);
             Route::post('create', [ClassController::class, 'store']);
             Route::post('update', [ClassController::class, 'update']);
             Route::post('delete', [ClassController::class, 'destroy']);
