@@ -18,10 +18,11 @@
                 }
             },
             'columns': [
-                {data: 'orderNumber'},
-                {data: 'status'},
+                {data: 'orderNumber', className: 'w-5px'},
+                {data: 'status', className: 'w-5px'},
                 {data: 'className'},
-                {data: 'createdAt'},
+                {data: 'assignedCourses'},
+                {data: 'createdAt', className: 'w-125px'},
                 {
                     data: 'edit',
                     className: 'text-right',
@@ -156,6 +157,104 @@
                     showConfirmButton: false,
                     timer: 2000
                 });
+            }
+        });
+    }
+
+    function assigning_course(id) {
+        $('[name="assigning-course-form"]').trigger('reset');
+        $('[name="assigning-course-form"] input[name="classId"]').val(id);
+        $('[name="assigning-course-modal"]').find('.modal-title').text("@lang('body.assigning_course')").end().modal('show');
+        getCourseList(id);
+    }
+
+    /** Assigning Course Save*/
+    $(document).on('click', '[name="assigning_course-save-btn"]', function () {
+        let courseList = {};
+        $('[name="assigning-course-form"] input:checkbox').each(function () {
+            courseList[this.name] = this.checked ? 1 : 0;
+        });
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            'url': '{{url('admin/settings/class/setAssigningCourse')}}',
+            'type': 'POST',
+            'dataType': 'JSON',
+            'data': {
+                'classId': $('[name="assigning-course-form"] input[name="classId"]').val(),
+                'courseList': courseList
+            },
+            beforeSend: function () {
+            },
+            success: function (data) {
+                if (undefined != data) {
+                    setAlert('success', '@lang('alert.assigning_course_update')', '@lang('alert.update_successfully')');
+                    $('[name="assigning-course-modal"]').modal('hide');
+                    reloadDataTable();
+                }
+            }, error: function (data) {
+                setAlert('error', '@lang('alert.assigning_course_update')', '@lang('alert.update_something_went_wrong')');
+            }
+        });
+    });
+
+    /**Get Course List*/
+    function getCourseList(id) {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            'url': '{{url('admin/settings/course/getList')}}',
+            'type': 'POST',
+            'dataType': 'JSON',
+            beforeSend: function () {
+                $('[name="assigning-course-inputs"]').html();
+            },
+            success: function (data) {
+                if (undefined != data && null != data) {
+                    let htmlField = '';
+                    data.forEach(function (value, key) {
+                        htmlField += '<label class="col-3 col-form-label">' + value.name + '</label>\n' +
+                            '                            <div class="col-3">\n' +
+                            '                               <span class="switch switch-outline switch-icon switch-info">\n' +
+                            '                                <label>\n' +
+                            '                                 <input type="checkbox" name="' + value.id + '"/>\n' +
+                            '                                 <span></span>\n' +
+                            '                                </label>\n' +
+                            '                               </span>\n' +
+                            '                            </div>';
+                    });
+                    $('[name="assigning-course-inputs"]').html(htmlField);
+                    getAssigningCourse(id);
+                }
+            }, error: function (data) {
+
+            }
+        });
+    }
+
+    /** Get Assigning Course for Class*/
+    function getAssigningCourse(id) {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            'url': '{{url('admin/settings/class/get')}}',
+            'type': 'POST',
+            'dataType': 'JSON',
+            'data': {
+                id: id
+            },
+            success: function (data) {
+                if (undefined != data.assigning_course && null != data.assigning_course) {
+                    Object.entries(JSON.parse(data.assigning_course)).forEach(entry => {
+                        const [key, value] = entry;
+                        $('[name="assigning-course-form"] input:checkbox[name="' + key + '"]').prop('checked',(value == 1 ? true : false));
+                    });
+                }
+            }, error: function (data) {
+
             }
         });
     }

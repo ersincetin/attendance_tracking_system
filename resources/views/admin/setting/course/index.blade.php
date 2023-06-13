@@ -1,6 +1,6 @@
 @extends('layouts.adminLayout')
 @section('Title')
-    @lang('body.lesson')
+    @lang('body.course')
 @endsection
 @section('Meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -19,7 +19,7 @@
                             <a href="javascript:;" class="text-muted">@lang('body.settings')</a>
                         </li>
                         <li class="breadcrumb-item text-muted">
-                            <a href="javascript:;" class="text-muted">@lang('body.lesson')</a>
+                            <a href="javascript:;" class="text-muted">@lang('body.course')</a>
                         </li>
                     </ul>
                 </div>
@@ -28,13 +28,13 @@
     </div>
 @endsection
 @section('Body')
-    @include("admin.setting.lesson.body")
+    @include("admin.setting.course.body")
 @endsection
 @section('Modal')
-    @include('admin.setting.lesson.modal')
+    @include('admin.setting.course.modal')
 @endsection
 @section('Javascript')
     <script src="{{asset("plugins/custom/datatables/datatables.bundle.js")}}"></script>
-    @include("admin.setting.lesson.script")
+    @include("admin.setting.course.script")
 @endsection
 

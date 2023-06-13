@@ -237,11 +237,11 @@
                                                     </a>
                                                 </li>
                                                 <li class="menu-item" aria-haspopup="true">
-                                                    <a href="{{url('admin/settings/lesson')}}" class="menu-link">
+                                                    <a href="{{url('admin/settings/course')}}" class="menu-link">
                                                         <i class="menu-bullet menu-bullet-dot">
                                                             <span></span>
                                                         </i>
-                                                        <span class="menu-text">@lang('body.lesson')</span>
+                                                        <span class="menu-text">@lang('body.course')</span>
                                                     </a>
                                                 </li>
                                             </ul>

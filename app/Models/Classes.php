@@ -18,6 +18,7 @@ class Classes extends Model
         'id',
         'status',
         'name',
+        'assigning_course',
         'created_at',
         'updated_at',
         'deleted_at',

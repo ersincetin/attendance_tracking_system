@@ -1,8 +1,8 @@
 <script>
-    let lessonDataTable;
+    let courseDataTable;
     $(document).ready(function () {
         $.fn.DataTable.ext.errMode = 'throw';
-        lessonDataTable = $('[name="lesson_datatable"]').DataTable({
+        courseDataTable = $('[name="course_datatable"]').DataTable({
             'processing': true,
             'serverSide': true,
             'serverMethod': 'POST',
@@ -12,16 +12,16 @@
                 'headers': {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                'url': "{{url("admin/settings/lesson/dataTable")}}",
+                'url': "{{url("admin/settings/course/dataTable")}}",
                 'error': function (t) {
 
                 }
             },
             'columns': [
-                {data: 'orderNumber'},
-                {data: 'status'},
-                {data: 'lessonName'},
-                {data: 'createdAt'},
+                {data: 'orderNumber',className:'w-5px'},
+                {data: 'status',className:'w-5px'},
+                {data: 'courseName',className:'w-auto'},
+                {data: 'createdAt',className:'w-125px'},
                 {
                     data: 'edit',
                     className: 'text-right',
@@ -32,17 +32,17 @@
         });
     });
 
-    $(document).on('click', '[name="lesson-add-btn"]', function () {
-        $('[name="lesson-form"]').trigger("reset");
-        $('[name="lessonId"]').removeAttr('value');
+    $(document).on('click', '[name="course-add-btn"]', function () {
+        $('[name="course-form"]').trigger("reset");
+        $('[name="courseId"]').removeAttr('value');
         $('.is-invalid').removeClass('is-invalid');
         $('.is-valid').removeClass('is-valid');
-        $('[name="lesson-modal"]').find('.modal-title').text("@lang('body.lesson_add')").end().modal('show');
+        $('[name="course-modal"]').find('.modal-title').text("@lang('body.course_add')").end().modal('show');
     });
 
-    /** Lesson Edit Function*/
-    function edit_lesson(id) {
-        $('[name="lesson-form"]').trigger("reset");
+    /** course Edit Function*/
+    function edit_course(id) {
+        $('[name="course-form"]').trigger("reset");
         $('.is-invalid').removeClass('is-invalid');
         $('.is-valid').removeClass('is-valid');
 
@@ -50,7 +50,7 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            'url': '{{url('admin/settings/lesson/get')}}',
+            'url': '{{url('admin/settings/course/get')}}',
             'type': 'POST',
             'dataType': 'JSON',
             'data': {
@@ -58,11 +58,11 @@
             },
             success: function (data) {
                 if (undefined != data && null != data) {
-                    $('[name="lessonId"]').val(data.id);
+                    $('[name="courseId"]').val(data.id);
                     $('[name="status"]').prop("checked", (data.status ? true : false));
-                    $('[name="lessonName"]').val(data.name);
+                    $('[name="courseName"]').val(data.name);
 
-                    $('[name="lesson-modal"]').find('.modal-title').text("@lang('body.lesson_edit')").end().modal('show');
+                    $('[name="course-modal"]').find('.modal-title').text("@lang('body.course_edit')").end().modal('show');
                 }
             }, error: function (data) {
 
@@ -74,16 +74,16 @@
     $(document).on('click', '[name="save-btn"]', function () {
 
         let url;
-        if ($('[name="lessonId"]').val().length > 0) {
-            url = '{{url('admin/settings/lesson/update')}}';
+        if ($('[name="courseId"]').val().length > 0) {
+            url = '{{url('admin/settings/course/update')}}';
         } else {
-            url = '{{url('admin/settings/lesson/create')}}';
+            url = '{{url('admin/settings/course/create')}}';
         }
 
         let formData = new FormData();
-        formData.append('lessonId', $('[name="lessonId"]').val());
+        formData.append('courseId', $('[name="courseId"]').val());
         formData.append('status', $('[name="status"]').is(':checked') ? 1 : 0);
-        formData.append('lessonName', $('[name="lessonName"]').val());
+        formData.append('courseName', $('[name="courseName"]').val());
 
         $.ajax({
             headers: {
@@ -96,26 +96,26 @@
             'data': formData,
             success: function (data) {
                 if (undefined != data) {
-                    $('[name="lesson-modal"]').modal('hide');
-                    if ($('[name="lessonId"]').val().length > 0) {
-                        setAlert('success', '@lang('alert.lesson_update')', '@lang('alert.update_successfully')');
+                    $('[name="course-modal"]').modal('hide');
+                    if ($('[name="courseId"]').val().length > 0) {
+                        setAlert('success', '@lang('alert.course_update')', '@lang('alert.update_successfully')');
                     } else {
-                        setAlert('success', '@lang('alert.lesson_add')', '@lang('alert.save_successfully')');
+                        setAlert('success', '@lang('alert.course_add')', '@lang('alert.save_successfully')');
                     }
                     reloadDataTable();
                 }
             }, error: function (data) {
-                if ($('[name="lessonId"]').val().length > 0) {
-                    setAlert('error', '@lang('alert.lesson_update')', '@lang('alert.update_something_went_wrong')');
+                if ($('[name="courseId"]').val().length > 0) {
+                    setAlert('error', '@lang('alert.course_update')', '@lang('alert.update_something_went_wrong')');
                 } else {
-                    setAlert('error', '@lang('alert.lesson_add')', '@lang('alert.save_something_went_wrong')');
+                    setAlert('error', '@lang('alert.course_add')', '@lang('alert.save_something_went_wrong')');
                 }
             }
         });
     });
 
     /**Role Delete Function*/
-    function delete_lesson(id) {
+    function delete_course(id) {
         Swal.fire({
             title: "Emin misiniz ?",
             text: "Bunu geri alamazsınız",
@@ -130,20 +130,20 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    'url': '{{url('admin/settings/lesson/delete')}}',
+                    'url': '{{url('admin/settings/course/delete')}}',
                     'type': 'POST',
                     'dataType': 'JSON',
                     'data': {
-                        lessonId: id
+                        courseId: id
                     }, beforeSend: function () {
                     },
                     success: function (data) {
                         if (undefined != data && 1 == data) {
-                            setAlert('success', '@lang('alert.lesson_delete')', '@lang('alert.delete_successfully').');
+                            setAlert('success', '@lang('alert.course_delete')', '@lang('alert.delete_successfully').');
                             reloadDataTable();
                         }
                     }, error: function (data) {
-                        setAlert('error', '@lang('alert.lesson.delete')', '@lang('alert.delete_something_went_wrong')');
+                        setAlert('error', '@lang('alert.course.delete')', '@lang('alert.delete_something_went_wrong')');
                     }, complete: function () {
                     }
                 });
@@ -161,6 +161,6 @@
 
     /**DataTable reload function*/
     function reloadDataTable() {
-        lessonDataTable.ajax.reload(null, false); //reload datatable ajax
+        courseDataTable.ajax.reload(null, false); //reload datatable ajax
     }
 </script>

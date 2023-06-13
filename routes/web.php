@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Setting\ClassController;
-use App\Http\Controllers\Admin\Setting\LessonController;
+use App\Http\Controllers\Admin\Setting\CourseController;
 use App\Http\Controllers\Admin\Setting\RoleController;
 use App\Http\Controllers\admin\StudentController;
 use App\Http\Controllers\Admin\UserController;
@@ -69,22 +69,24 @@ Route::prefix('admin')->group(function () {
             Route::post('permission/update', [RoleController::class, 'permissionUpdate']);
         });
 
-        Route::prefix('class')->group(function (){
+        Route::prefix('class')->group(function () {
             Route::get('/', [ClassController::class, 'index']);
             Route::post('dataTable', [ClassController::class, 'dataTables']);
             Route::post('get', [ClassController::class, 'show']);
             Route::post('create', [ClassController::class, 'store']);
             Route::post('update', [ClassController::class, 'update']);
             Route::post('delete', [ClassController::class, 'destroy']);
+            Route::post('setAssigningCourse', [ClassController::class, 'setAssigningCourse']);
         });
 
-        Route::prefix('lesson')->group(function (){
-            Route::get('/', [LessonController::class, 'index']);
-            Route::post('dataTable', [LessonController::class, 'dataTables']);
-            Route::post('get', [LessonController::class, 'show']);
-            Route::post('create', [LessonController::class, 'store']);
-            Route::post('update', [LessonController::class, 'update']);
-            Route::post('delete', [LessonController::class, 'destroy']);
+        Route::prefix('course')->group(function () {
+            Route::get('/', [CourseController::class, 'index']);
+            Route::post('dataTable', [CourseController::class, 'dataTables']);
+            Route::post('get', [CourseController::class, 'show']);
+            Route::post('getList', [CourseController::class, 'list']);
+            Route::post('create', [CourseController::class, 'store']);
+            Route::post('update', [CourseController::class, 'update']);
+            Route::post('delete', [CourseController::class, 'destroy']);
         });
 
     });
