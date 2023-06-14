@@ -39,11 +39,8 @@
                                 <td>
                                     <div class="form-group mb-0 pb-0 row">
                                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            <select class="form-control form-control-sm form-control-solid"
-                                                    name="class" required>
-                                                <option value="0">@lang('body.choose')</option>
-                                                <option value="6">M</option>
-                                                <option value="7">L</option>
+                                            <select class="form-control" id="select-1"
+                                                    name="multi-class" data-container="body">
                                             </select>
                                         </div>
                                     </div>
@@ -51,7 +48,7 @@
                                 <td>
                                     <div class="form-group mb-0 pb-0 row">
                                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            <select class="form-control form-control-sm form-control-solid"
+                                            <select class="form-control  "
                                                     name="sex" required>
                                                 <option value="0">@lang('body.choose')</option>
                                                 <option value="M">@lang('body.male')</option>
@@ -62,28 +59,28 @@
                                 </td>
                                 <td>
                                     <div class="form-group mb-0 pb-0">
-                                        <input type="text" class="form-control form-control-sm form-control-solid"
+                                        <input type="text" class="form-control  "
                                                name="identityNumber" required
                                                placeholder="Enter @lang('body.identity_number')"/>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="form-group mb-0 pb-0">
-                                        <input type="text" class="form-control form-control-sm form-control-solid"
+                                        <input type="text" class="form-control  "
                                                name="firstname" required
                                                placeholder="Enter @lang('body.firstname')"/>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="form-group mb-0 pb-0">
-                                        <input type="text" class="form-control form-control-sm form-control-solid"
+                                        <input type="text" class="form-control  "
                                                name="secondName"
                                                placeholder="Enter @lang('body.second_name')"/>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="form-group mb-0 pb-0">
-                                        <input type="text" class="form-control form-control-sm form-control-solid"
+                                        <input type="text" class="form-control  "
                                                name="lastname" required
                                                placeholder="Enter @lang('body.lastname')"/>
                                     </div>
