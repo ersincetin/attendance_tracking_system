@@ -1,5 +1,5 @@
 <script>
-    let count = 0;
+    let count = 1;
     let rowItem = 0;
     let datatable;
     $(document).ready(function () {
@@ -13,16 +13,12 @@
         });
     });
     $(document).on('click', '[name="row-add"]', function () {
-        count = $('[name="multi-student-add-table"] tbody tr').length;
         $('[name="multi-student-add-table"] tbody').html($('[name="multi-student-add-table"] tbody').html() + '<tr name="row-item-' + (count + 1) + '">\n' +
             '                                <td name="row-count">' + (count + 1) + '</td>\n' +
             '                                <td>\n' +
             '                                    <div class="form-group mb-0 pb-0 row">\n' +
             '                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">\n' +
-            '                                            <select class="form-control form-control-sm form-control-solid" name="class" required>\n' +
-            '                                                <option value="0">@lang("body.choose")</option>\n' +
-            '                                                <option value="6">M</option>\n' +
-            '                                                <option value="7">L</option>\n' +
+            '                                            <select class="form-control" name="multi-class" id="select-' + (count + 1) + '">' +
             '                                            </select>\n' +
             '                                        </div>\n' +
             '                                    </div>\n' +
@@ -30,7 +26,7 @@
             '                                <td>\n' +
             '                                    <div class="form-group mb-0 pb-0 row">\n' +
             '                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">\n' +
-            '                                            <select class="form-control form-control-sm form-control-solid" name="sex" required>\n' +
+            '                                            <select class="form-control " name="sex" required>\n' +
             '                                                <option value="0">@lang("body.choose")</option>\n' +
             '                                                <option value="M">@lang("body.male")</option>\n' +
             '                                                <option value="F">@lang("body.female")</option>\n' +
@@ -40,28 +36,28 @@
             '                                </td>\n' +
             '                                <td>\n' +
             '                                    <div class="form-group mb-0 pb-0">\n' +
-            '                                        <input type="text" class="form-control form-control-sm form-control-solid"\n' +
+            '                                        <input type="text" class="form-control "\n' +
             '                                               name="identityNumber" required\n' +
             '                                               placeholder="Enter @lang("body.identity_number")"/>\n' +
             '                                    </div>\n' +
             '                                </td>\n' +
             '                                <td>\n' +
             '                                    <div class="form-group mb-0 pb-0">\n' +
-            '                                        <input type="text" class="form-control form-control-sm form-control-solid"\n' +
+            '                                        <input type="text" class="form-control "\n' +
             '                                               name="firstname" required\n' +
             '                                               placeholder="Enter @lang("body.firstname")"/>\n' +
             '                                    </div>\n' +
             '                                </td>\n' +
             '                                <td>\n' +
             '                                    <div class="form-group mb-0 pb-0">\n' +
-            '                                        <input type="text" class="form-control form-control-sm form-control-solid"\n' +
+            '                                        <input type="text" class="form-control "\n' +
             '                                               name="secondName"\n' +
             '                                               placeholder="Enter @lang("body.second_name")"/>\n' +
             '                                    </div>\n' +
             '                                </td>\n' +
             '                                <td>\n' +
             '                                    <div class="form-group mb-0 pb-0">\n' +
-            '                                        <input type="text" class="form-control form-control-sm form-control-solid"\n' +
+            '                                        <input type="text" class="form-control "\n' +
             '                                               name="lastname" required\n' +
             '                                               placeholder="Enter @lang("body.lastname")"/>\n' +
             '                                    </div>\n' +
@@ -74,6 +70,8 @@
             '                                    </div>\n' +
             '                                </td>\n' +
             '                            </tr>');
+        count++;
+        getClassList();
     });
     $(document).on('click', '.fa-trash', function () {
         rowItem = $('[name="row-count"]');

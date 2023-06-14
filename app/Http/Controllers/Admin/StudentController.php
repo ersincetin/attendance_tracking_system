@@ -34,21 +34,24 @@ class StudentController extends Controller
     {
         if ($request->ajax()) {
             /** Multi user add */
+            $errorStudentArray = array();
             if (isset($request->students) && count($request->students)) {
                 foreach ($request->students as $key => $student) {
+                    echo $student['multi-class'];
                     $student = new Student([
                         'sex' => isset($student['sex']) ? $student['sex'] : null,
-                        'status' => isset($student['status']) ? $student['status'] : 0,
-                        'class_id' => isset($student['class']) ? $student['class'] : null,
+                        'status' => isset($student['status']) ? $student['status'] : 1,
+                        'class_id' => isset($student['multi-class']) ? $student['multi-class'] : null,
                         'identity_number' => isset($student['identityNumber']) ? $student['identityNumber'] : null,
                         'firstname' => isset($student['firstname']) ? $student['firstname'] : null,
                         'second_name' => isset($student['secondName']) ? $student['secondName'] : null,
                         'lastname' => isset($student['lastname']) ? $student['lastname'] : null,
                         'password' => isset($student['identityNumber']) ? $student['identityNumber'] : null
                     ]);
-                    $student->save();
+                    if (!$student->save()) array_push($errorStudentArray, $student);
                 }
-                return 1;
+                if (count($errorStudentArray) > 0) return 1;
+                return $errorStudentArray;
             }
             $student = new Student([
                 'sex' => isset($request->sex) ? $request->sex : null,
@@ -99,6 +102,7 @@ class StudentController extends Controller
             $student = Student::where('id', $request->studentId)->first();
             $student->sex = isset($request->sex) ? $request->sex : $student->sex;
             $student->status = isset($request->status) ? $request->status : $student->status;
+            $student->class_id = isset($request->classId) ? $request->classId : $student->class_id;
             $student->identity_number = isset($request->identityNumber) ? $request->identityNumber : $student->identity_number;
             $student->firstname = isset($request->firstname) ? $request->firstname : $student->firstname;
             $student->second_name = isset($request->secondName) ? $request->secondName : null;
@@ -131,15 +135,20 @@ class StudentController extends Controller
     {
         if ($request->ajax()) {
             if (isset($request->search->value) && $request->search->value != '' && $request->search->value > 0) {
-                $students = Student::where('identity_number', 'LIKE', '%' . strtolower($_GET['search']['value']) . '%')
+                $students = Student::select('students.*', 'classes.name as class_name')
+                    ->where('identity_number', 'LIKE', '%' . strtolower($_GET['search']['value']) . '%')
                     ->orWhere('firstname', 'LIKE', '%' . strtolower($_GET['search']['value']) . '%')
                     ->orWhere('second_name', 'LIKE', '%' . strtolower($_GET['search']['value']) . '%')
                     ->orWhere('lastname', 'LIKE', '%' . strtolower($_GET['search']['value']) . '%')
                     ->orWhere('email', 'LIKE', '%' . strtolower($_GET['search']['value']) . '%')
-                    ->orderBy('id')
+                    ->join('classes', 'students.class_id', 'classes.id')
+                    ->orderBy('students.id')
                     ->get();
             } else {
-                $students = Student::all();
+                $students = Student::select('students.*', 'classes.name as class_name')
+                    ->join('classes', 'students.class_id', 'classes.id')
+                    ->orderBy('students.id')
+                    ->get();
             }
 
             $data = array();
@@ -149,7 +158,7 @@ class StudentController extends Controller
                 $row['id'] = $student->id;
                 $row['status'] = $student->status;
                 $row['orderNumber'] = $i++;
-                $row['className'] = $student->class_id;
+                $row['className'] = $student->class_name;
                 $row['fullName'] = $student->firstname . ' ' . $student->second_name . ' ' . $student->lastname;
                 $row['email'] = $student->email;
                 $row['createdAt'] = $this->DD_MM_YYYY_rotate(substr(date($student->created_at), 0, 10)) . substr(date($student->created_at), 10);

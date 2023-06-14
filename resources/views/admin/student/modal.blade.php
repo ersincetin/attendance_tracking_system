@@ -47,15 +47,12 @@
                     <div class="form-group mb-0 pb-0 row">
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                             <label>Sınıf: <span class="text-danger">*</span></label>
-                            <select class="form-control form-control-solid" name="classId">
-                                <option value="0">@lang('body.choose')</option>
-                                <option value="2">L</option>
-                                <option value="3">M</option>
+                            <select class="form-control selectpicker" required name="class" data-live-search="true" data-none-selected-text="@lang('body.choose')">
                             </select>
                         </div>
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                             <label>@lang('body.sex'): <span class="text-danger">*</span></label>
-                            <select class="form-control form-control-solid" name="sex">
+                            <select class="form-control " name="sex">
                                 <option value="0">@lang('body.choose')</option>
                                 <option value="M">@lang('body.male')</option>
                                 <option value="F">@lang('body.female')</option>
@@ -64,37 +61,38 @@
                     </div>
                     <div class="form-group mb-0 pb-0">
                         <label name="identityNumber-label">@lang('body.identity_number'): </label>
-                        <input type="text" class="form-control form-control-solid" name="identityNumber" required
+                        <input type="text" class="form-control " name="identityNumber" required
                                placeholder="Enter @lang('body.identity_number')"/>
                     </div>
                     <div class="form-group mb-0 pb-0 row">
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                             <label name="firstname-label">@lang('body.firstname'): </label>
-                            <input type="text" class="form-control form-control-solid" name="firstname" required
+                            <input type="text" class="form-control " name="firstname" required
                                    placeholder="Enter @lang('body.firstname')"/>
                         </div>
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                             <label name="secondName-label">@lang('body.second_name'):</label>
-                            <input type="text" class="form-control form-control-solid" name="secondName"
+                            <input type="text" class="form-control " name="secondName"
                                    placeholder="Enter @lang('body.second_name')"/>
                         </div>
                     </div>
                     <div class="form-group mb-0 pb-0">
                         <label name="lastname-label">@lang('body.lastname'): </label>
-                        <input type="text" class="form-control form-control-solid" name="lastname" required
+                        <input type="text" class="form-control " name="lastname" required
                                placeholder="Enter @lang('body.lastname')"/>
                     </div>
 
                     <div class="form-group mb-0 pb-0">
                         <label name="email-label">@lang('body.email'): </label>
-                        <input type="email" class="form-control form-control-solid" name="email"
+                        <input type="email" class="form-control " name="email"
                                placeholder="Enter @lang('body.email')"/>
                     </div>
 
                 </form>
             </div>
             <div class="modal-footer m-1 p-1">
-                <button type="button" class="btn btn-light-danger font-weight-bold" data-dismiss="modal">@lang('body.cancel')
+                <button type="button" class="btn btn-light-danger font-weight-bold"
+                        data-dismiss="modal">@lang('body.cancel')
                 </button>
                 <button type="button" class="btn btn-light-primary font-weight-bold" name="save-btn">@lang('body.save')
                 </button>
