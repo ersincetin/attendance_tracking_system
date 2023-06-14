@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\Admin\Setting;
 
 use App\Http\Controllers\Controller;
-use App\Models\Course;
+use App\Models\Semester;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
 
-class CourseController extends Controller
+class SemesterController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(): View
     {
-        return view('admin.setting.course.index');
+        return view('admin.setting.semester.index');
     }
 
     /**
@@ -33,11 +33,11 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         if ($request->ajax()) {
-            $lesson = new Course([
+            $semester = new Semester([
                 'status' => isset($request->status) ? $request->status : 0,
-                'name' => isset($request->lessonName) ? $request->lessonName : null,
+                'name' => isset($request->semesterName) ? $request->semesterName : null,
             ]);
-            if ($lesson->save()) return 1;
+            if ($semester->save()) return 1;
             return 0;
         } else {
             echo "Sadece AJAX sorgular için";
@@ -51,17 +51,17 @@ class CourseController extends Controller
     {
         if ($request->ajax()) {
             $id = isset($request->id) ? $request->id : 0;
-            return Course::where('id', $id)->first();
+            return Semester::where('id', $id)->first();
         } else {
             echo "Sadece AJAX sorgular için";
         }
     }
 
-    /** Get Course List*/
+    /** Get Class List*/
     public function list(Request $request)
     {
         if ($request->ajax()) {
-            return Course::all();
+            return Semester::all();
         } else {
             echo "Sadece AJAX sorgular için";
         }
@@ -81,10 +81,10 @@ class CourseController extends Controller
     public function update(Request $request)
     {
         if ($request->ajax()) {
-            $course = Course::where('id', $request->courseId)->first();
-            $course->status = isset($request->status) ? ($request->status) : $course->status;
-            $course->name = isset($request->courseName) ? $request->courseName : $course->name;
-            if ($course->update()) return 1;
+            $semester = Semester::where('id', $request->semesterId)->first();
+            $semester->status = isset($request->status) ? ($request->status) : $semester->status;
+            $semester->name = isset($request->semesterName) ? $request->semesterName : $semester->name;
+            if ($semester->update()) return 1;
             return 0;
         } else {
             echo "Sadece AJAX sorgular için";
@@ -97,7 +97,7 @@ class CourseController extends Controller
     public function destroy(Request $request)
     {
         if ($request->ajax()) {
-            $lesson = Course::where('id', $request->lessonId)->first();
+            $lesson = Semester::where('id', $request->semesterId)->first();
             if ($lesson->delete()) return 1;
             return 0;
         } else {
@@ -110,22 +110,22 @@ class CourseController extends Controller
     {
         if ($request->ajax()) {
             if (isset($request->search->value) && $request->search->value != '' && $request->search->value > 0) {
-                $lessons = Course::where('name', 'LIKE', '%' . strtolower($_GET['search']['value']) . '%')
+                $semesters = Semester::where('name', 'LIKE', '%' . strtolower($_GET['search']['value']) . '%')
                     ->orderBy('id')
                     ->get();
             } else {
-                $lessons = Course::all();
+                $semesters = Semester::all();
             }
 
             $data = array();
             $i = 1;
-            foreach ($lessons as $lesson) {
+            foreach ($semesters as $semester) {
                 $row = array();
-                $row['id'] = $lesson->id;
-                $row['status'] = $lesson->status;
+                $row['id'] = $semester->id;
+                $row['status'] = $semester->status;
                 $row['orderNumber'] = $i++;
-                $row['courseName'] = $lesson->name;
-                $row['createdAt'] = $this->DD_MM_YYYY_rotate(substr(date($lesson->created_at), 0, 10)) . substr(date($lesson->created_at), 10);
+                $row['semesterName'] = $semester->name;
+                $row['createdAt'] = $this->DD_MM_YYYY_rotate(substr(date($semester->created_at), 0, 10)) . substr(date($semester->created_at), 10);
                 $row['edit'] = "";
                 $data[] = $row;
             }
@@ -135,8 +135,8 @@ class CourseController extends Controller
                 })
                 ->editColumn('edit', function ($data) {
                     return '
-                        <a href="javascript:;" class="btn btn-sm btn-icon text-primary" onclick="edit_course(' . $data['id'] . ')" title="' . Lang::get('body.edit') . '"><i class="fas fa fa-edit text-warning"></i></a>
-                        <a href="javascript:;" class="btn btn-sm btn-icon" onclick="delete_course(' . $data['id'] . ')" title="' . Lang::get('body.delete') . '"><i class="fas fa fa-trash text-danger"></i></a>
+                        <a href="javascript:;" class="btn btn-sm btn-icon text-primary" onclick="edit_semester(' . $data['id'] . ')" title="' . Lang::get('body.edit') . '"><i class="fas fa fa-edit text-warning"></i></a>
+                        <a href="javascript:;" class="btn btn-sm btn-icon" onclick="delete_semester(' . $data['id'] . ')" title="' . Lang::get('body.delete') . '"><i class="fas fa fa-trash text-danger"></i></a>
                     ';
                 })
                 ->rawColumns(['status', 'edit'])

@@ -244,6 +244,14 @@
                                                         <span class="menu-text">@lang('body.course')</span>
                                                     </a>
                                                 </li>
+                                                <li class="menu-item" aria-haspopup="true">
+                                                    <a href="{{url('admin/settings/semester')}}" class="menu-link">
+                                                        <i class="menu-bullet menu-bullet-dot">
+                                                            <span></span>
+                                                        </i>
+                                                        <span class="menu-text">@lang('body.semester')</span>
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </li>

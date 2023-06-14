@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Setting\ClassController;
 use App\Http\Controllers\Admin\Setting\CourseController;
 use App\Http\Controllers\Admin\Setting\RoleController;
+use App\Http\Controllers\Admin\Setting\SemesterController;
 use App\Http\Controllers\admin\StudentController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -90,6 +91,16 @@ Route::prefix('admin')->group(function () {
             Route::post('create', [CourseController::class, 'store']);
             Route::post('update', [CourseController::class, 'update']);
             Route::post('delete', [CourseController::class, 'destroy']);
+        });
+
+        Route::prefix('semester')->group(function () {
+            Route::get('/', [SemesterController::class, 'index']);
+            Route::post('dataTable', [SemesterController::class, 'dataTables']);
+            Route::post('get', [SemesterController::class, 'show']);
+            Route::post('getList', [SemesterController::class, 'list']);
+            Route::post('create', [SemesterController::class, 'store']);
+            Route::post('update', [SemesterController::class, 'update']);
+            Route::post('delete', [SemesterController::class, 'destroy']);
         });
 
     });
