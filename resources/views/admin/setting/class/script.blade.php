@@ -169,10 +169,10 @@
     }
 
     /** Assigning Course Save*/
-    $(document).on('click', '[name="assigning_course-save-btn"]', function () {
-        let courseList = {};
+    $(document).on('click', '[name="assigning-course-save-btn"]', function () {
+        let courseList = [];
         $('[name="assigning-course-form"] input:checkbox').each(function () {
-            if (this.checked) courseList[this.name] = 1;
+            if (this.checked) courseList.push(this.name);
         });
         $.ajax({
             headers: {

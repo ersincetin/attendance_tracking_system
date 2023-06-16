@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AttendanceRecordController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Setting\ClassController;
 use App\Http\Controllers\Admin\Setting\CourseController;
@@ -103,6 +104,17 @@ Route::prefix('admin')->group(function () {
             Route::post('delete', [SemesterController::class, 'destroy']);
         });
 
+    });
+
+    Route::prefix('attendance_record')->group(function () {
+        Route::get('/', [AttendanceRecordController::class, 'index']);
+        Route::post('dataTable', [AttendanceRecordController::class, 'dataTables']);
+        Route::post('getFilteredClassDataTable', [AttendanceRecordController::class, 'getFilteredClassDataTable']);
+        Route::post('get', [AttendanceRecordController::class, 'show']);
+        Route::post('getList', [AttendanceRecordController::class, 'list']);
+        Route::post('create', [AttendanceRecordController::class, 'store']);
+        Route::post('update', [AttendanceRecordController::class, 'update']);
+        Route::post('delete', [AttendanceRecordController::class, 'destroy']);
     });
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy']);

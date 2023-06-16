@@ -62,7 +62,18 @@ class ClassController extends Controller
     public function list(Request $request)
     {
         if ($request->ajax()) {
-            return Classes::all();
+
+            $classes = Classes::where('assigning_course', '!=', null)
+                ->orderBy('id')
+                ->get();
+            foreach ($classes as $class) {
+                $list = array();
+                foreach (explode(',', substr($class->assigning_course, 1, -1)) as $courseId)
+                    array_push($list, substr($courseId, 1, -1));
+                $courses = Course::whereIn('id', $list)->orderBy('id')->get(['id', 'name']);
+                $class->assigning_course = json_encode($courses);
+            }
+            return $classes;
         } else {
             echo "Sadece AJAX sorgular için";
         }
@@ -137,14 +148,14 @@ class ClassController extends Controller
                     return $data['status'] ? '<i class="fas fa-check-circle text-success"></i>' : '<i class="far fa-times-circle text-danger"></i>';
                 })
                 ->editColumn('assignedCourses', function ($data) {
-                    $courseIdList = !is_null($data['assignedCourses']) ? json_decode($data['assignedCourses'], true) : null;
+                    $courseIdList = !is_null($data['assignedCourses']) ? substr($data['assignedCourses'], 1, -1) : null;
                     $list = array();
                     $html = '';
                     if (!is_null($courseIdList)) {
-                        foreach ($courseIdList as $key => $value)
-                            if ($value == 1) array_push($list, $key);
+                        foreach (explode(',', $courseIdList) as $key => $value)
+                            array_push($list, substr($value, 1, -1));
                     }
-                    if (count($list) > 0) {
+                    if (strlen($courseIdList) > 0) {
                         $courses = Course::whereIn('id', $list)
                             ->orderBy('id')
                             ->get();

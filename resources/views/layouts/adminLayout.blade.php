@@ -115,7 +115,7 @@
                                 <i class="menu-icon flaticon-avatar"></i>
                                 <span class="menu-text">Profile</span>
                             </a>
-
+                        </li>
                         <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                             <a href="javascript:;" class="menu-link menu-toggle">
                                 <i class="menu-icon flaticon-web"></i>
@@ -198,6 +198,12 @@
                                     </li>
                                 </ul>
                             </div>
+                        </li>
+                        <li class="menu-item" aria-haspopup="true">
+                            <a href="{{url('admin/attendance_record')}}" class="menu-link">
+                                <i class="menu-icon flaticon-book"></i>
+                                <span class="menu-text">Attendance Record</span>
+                            </a>
                         </li>
                         <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                             <a href="javascript:;" class="menu-link menu-toggle">
@@ -343,7 +349,7 @@
                                 class="btn btn-icon btn-icon-mobile w-auto btn-clean d-flex align-items-center btn-lg px-2"
                                 id="kt_quick_user_toggle">
                                 <span
-{{--                                    class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{Auth::user()->firstname}}</span>--}}
+                                {{--                                    class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{Auth::user()->firstname}}</span>--}}
                                 <span class="symbol symbol-lg-35 symbol-25 symbol-light-info">
 {{--											<span class="symbol-label font-size-h5 font-weight-bold">{{Auth::user()->firstname[0]}}</span>--}}
 										</span>

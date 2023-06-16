@@ -235,7 +235,7 @@ class UserController extends Controller
                     $html = '';
                     if (!is_null($classIdList)) {
                         foreach ($classIdList as $key => $value)
-                            if ($value == 1) array_push($list, $key);
+                            array_push($list, $key);
                     }
                     if (count($list) > 0) {
                         $classes = Classes::whereIn('id', $list)

@@ -21,7 +21,7 @@
                 <button type="button" class="btn btn-light-danger font-weight-bold"
                         data-dismiss="modal">@lang('body.cancel')
                 </button>
-                <button type="button" class="btn btn-light-primary font-weight-bold" name="assigning_course-save-btn">@lang('body.save')
+                <button type="button" class="btn btn-light-primary font-weight-bold" name="assigning-course-save-btn">@lang('body.save')
                 </button>
             </div>
         </div>
