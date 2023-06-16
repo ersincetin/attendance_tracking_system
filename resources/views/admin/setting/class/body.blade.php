@@ -17,7 +17,7 @@
                 <tr>
                     <th class="w-5px">#</th>
                     <th class="w-5px">@lang('body.status')</th>
-                    <th>@lang('body.class_name')</th>
+                    <th class="w-100px">@lang('body.class_name')</th>
                     <th>@lang('body.assigned_courses')</th>
                     <th class="w-125px">@lang('body.created_at')</th>
                     <th class="w-100px">@lang('body.actions')</th>

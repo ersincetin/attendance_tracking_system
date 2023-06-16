@@ -19,17 +19,41 @@
             },
             success: function (data) {
                 if (undefined != data && null != data) {
-                    let htmlField = '';
+                    let htmlField = '', htmlCheckBox = '';
                     data.forEach(function (value, key) {
-                        htmlField += '<label class="col-3 col-form-label">' + value.name + '</label>\n' +
-                            '                            <div class="col-3">\n' +
-                            '                               <span class="switch switch-outline switch-icon switch-info">\n' +
+                        JSON.parse(value.assigning_course).forEach(function (courseValue, courseKey) {
+                            htmlCheckBox += '<div class="col-auto col-form-label m-0 p-0">\n' +
+                                '                                    <div class="checkbox-inline">\n' +
+                                '                                        <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-info">\n' +
+                                '                                            <input type="checkbox" name="' + courseValue.id + '" data-label="student-affairs"\n' +
+                                '                                            />\n' +
+                                '                                            <span></span>\n' +
+                                '                                            ' + courseValue.name + '\n' +
+                                '                                        </label>\n' +
+                                '                                    </div>\n' +
+                                '                                </div>';
+                        });
+                        htmlField += '<div class="col-6">' +
+                            '<label class="col-6 col-form-label">' + value.name + '</label>\n' +
+                            '                            <div class="col-6">\n' +
+                            '                               <span class="switch switch-outline switch-icon switch-info" data-toggle="collapse" data-target="#multiCollapse-' + value.id + '" aria-expanded="false" aria-controls="multiCollapse-' + value.id + '">\n' +
                             '                                <label>\n' +
-                            '                                 <input type="checkbox" name="' + value.id + '"/>\n' +
+                            '                                 <input type="checkbox" name="form-checkbox" id="' + value.id + '"/>\n' +
                             '                                 <span></span>\n' +
                             '                                </label>\n' +
                             '                               </span>\n' +
-                            '                            </div>';
+                            '                            </div>' +
+                            '' +
+                            '  <div class="col-12">\n' +
+                            '    <div class="collapse width" name="multiCollapse-' + value.id + '">\n' +
+                            '      <div class="card card-body m-1 p-1 border border-1 border-info">\n' +
+                            htmlCheckBox +
+                            '      </div>\n' +
+                            '    </div>\n' +
+                            '  </div>' +
+                            '</div>';
+
+                        htmlCheckBox = '';
                     });
                     $('[name="assigning-class-inputs"]').html(htmlField);
                     getAssigningClass(id);
@@ -42,9 +66,17 @@
 
     /** Assigning Course Save*/
     $(document).on('click', '[name="assigning-class-save-btn"]', function () {
-        let classList = {};
-        $('[name="assigning-class-form"] input:checkbox').each(function () {
-            if (this.checked) classList[this.name] = 1;
+        let classList = {}, courseList = [];
+        $('[name="assigning-class-form"] input:checkbox[name="form-checkbox"]').each(function () {
+            if (this.checked) {
+                courseList = [];
+                $('[name="assigning-class-form"] [name="multiCollapse-' + this.id + '"] input:checkbox').each(function () {
+                    if (this.checked) courseList.push(this.name);
+                });
+                classList[this.id] = courseList;
+                console.log(classList);
+
+            }
         });
         $.ajax({
             headers: {
@@ -87,7 +119,12 @@
                 if (undefined != data.assigning_class && null != data.assigning_class) {
                     Object.entries(JSON.parse(data.assigning_class)).forEach(entry => {
                         const [key, value] = entry;
-                        $('[name="assigning-class-form"] input:checkbox[name="' + key + '"]').prop('checked',(value == 1 ? true : false));
+                        $('[name="assigning-class-form"] input:checkbox[id="' + key + '"]').prop('checked', 1);
+                        $('[name="assigning-class-form"] [name="multiCollapse-' + key + '"]').addClass('show');
+                        value.forEach(courseEntry => {
+                            const [courseKey] = courseEntry;
+                            $('[name="assigning-class-form"] [name="multiCollapse-' + key + '"] input:checkbox[name=' + courseKey + ']').prop('checked', 1);
+                        });
                     });
                 }
             }, error: function (data) {
@@ -95,4 +132,13 @@
             }
         });
     }
+
+    /**Collapse Open-Close*/
+    $(document).on('change', '[name="assigning-class-form"] input:checkbox[name="form-checkbox"]', function () {
+        if (this.checked) {
+            $('[name="assigning-class-form"] [name="multiCollapse-' + this.id + '"]').addClass('show');
+        } else {
+            $('[name="assigning-class-form"] [name="multiCollapse-' + this.id + '"]').removeClass('show');
+        }
+    });
 </script>
