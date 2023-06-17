@@ -7,6 +7,7 @@ use App\Models\AttendanceRecord;
 use App\Models\AttendanceRecordInput;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
@@ -148,10 +149,11 @@ class AttendanceRecordController extends Controller
             }
             return DataTables::of($data)
                 ->editColumn('edit', function ($data) {
+                    $permissions = isset(Auth::user()->role->permission) ? json_decode(Auth::user()->role->permission, true) : null;
                     return '
-                        <a href="javascript:;" class="btn btn-sm btn-icon text-primary" onclick="edit_attendance_record(' . $data['id'] . ')" title="' . Lang::get('body.edit') . '"><i class="fas fa fa-edit text-warning"></i></a>
-                        <a href="javascript:;" class="btn btn-sm btn-icon" onclick="delete_attendance_record(' . $data['id'] . ')" title="' . Lang::get('body.delete') . '"><i class="fas fa fa-trash text-danger"></i></a>
-                    ';
+                                ' . (!is_null($permissions) && isset($permissions['user']) && $permissions['attendance-record']['updating'] == 1 ? '<a href="javascript:;" class="btn btn-sm btn-icon text-primary" onclick="edit_attendance_record(' . $data['id'] . ')" title="' . Lang::get('body.edit') . '"><i class="fas fa fa-edit text-warning"></i></a>' : '') . '
+                                ' . (!is_null($permissions) && isset($permissions['user']) && $permissions['attendance-record']['deleting'] == 1 ? '<a href="javascript:;" class="btn btn-sm btn-icon" onclick="delete_attendance_record(' . $data['id'] . ')" title="' . Lang::get('body.delete') . '"><i class="fas fa fa-trash text-danger"></i></a>' : '') . '
+                            ';
                 })
                 ->rawColumns(['edit'])
                 ->make(true);

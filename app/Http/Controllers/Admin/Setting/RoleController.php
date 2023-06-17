@@ -27,6 +27,15 @@ class RoleController extends Controller
         return view('admin.setting.role.permission.index')->with('id', $id);
     }
 
+    public function permissionList(Request $request)
+    {
+        if ($request->ajax()) {
+            return Role::where('id', $request->roleId)->first(['permission']);
+        } else {
+            echo "Sadece AJAX sorgular için";
+        }
+    }
+
     /**
      * Update permissions the specified resource in storage.
      */

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
 
@@ -170,10 +172,11 @@ class StudentController extends Controller
                     return $data['status'] ? '<i class="fas fa-check-circle text-success"></i>' : '<i class="far fa-times-circle text-danger"></i>';
                 })
                 ->editColumn('edit', function ($data) {
+                    $permissions = isset(Auth::user()->role->permission) ? json_decode(Auth::user()->role->permission, true) : null;
                     return '
-                        <a href="javascript:;" class="btn btn-sm btn-icon text-primary" onclick="edit_student(' . $data['id'] . ')"><i class="fas fa fa-user-edit text-warning"></i></a>
-                        <a href="javascript:;" class="btn btn-sm btn-icon" id="user-delete" onclick="delete_student(' . $data['id'] . ')"><i class="fas fa fa-trash text-danger"></i></a>
-                    ';
+                                ' . (!is_null($permissions) && isset($permissions['user']) && $permissions['attendance-record']['updating'] == 1 ? '<a href="javascript:;" class="btn btn-sm btn-icon text-primary" onclick="edit_student(' . $data['id'] . ')"><i class="fas fa fa-user-edit text-warning"></i></a>' : '') . '
+                                ' . (!is_null($permissions) && isset($permissions['user']) && $permissions['attendance-record']['deleting'] == 1 ? '<a href="javascript:;" class="btn btn-sm btn-icon" id="user-delete" onclick="delete_student(' . $data['id'] . ')"><i class="fas fa fa-trash text-danger"></i></a>' : '') . '
+                            ';
                 })
                 ->rawColumns(['status', 'edit'])
                 ->make(true);

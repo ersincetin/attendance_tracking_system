@@ -1,12 +1,17 @@
+@php
+    $permissions = isset(Auth::user()->role->permission) ? json_decode(Auth::user()->role->permission,true) : null
+@endphp
 <div class="card card-custom col-xxl-12">
     <div class="card-header flex-wrap border-0 pt-6 pb-0 mr-1 pr-1">
         <div class="card-title">
             &nbsp;
         </div>
         <div class="card-toolbar">
-            <a href="javascript:;" class="btn btn-light-primary font-weight-bolder" name="user-add-btn">
-                <i class="fas fa fa-user-plus"></i> @lang('body.user_add')
-            </a>
+            @if(!is_null($permissions) && isset($permissions['user']) && $permissions['user']['creating'] == 1)
+                <a href="javascript:;" class="btn btn-light-primary font-weight-bolder" name="user-add-btn">
+                    <i class="fas fa fa-user-plus"></i> @lang('body.user_add')
+                </a>
+            @endif
         </div>
     </div>
     <div class="card-body m-1 p-1">

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Classes;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\View\View;
@@ -217,6 +218,7 @@ class UserController extends Controller
                 $row['status'] = $user->status;
                 $row['roleName'] = $user->role_name;
                 $row['roleId'] = $user->role_id;
+                $row['roleCode'] = $request->userType;
                 $row['assignedClasses'] = $user->assigning_class;
                 $row['username'] = $user->username;
                 $row['fullName'] = $user->firstname . ' ' . $user->second_name . ' ' . $user->lastname;
@@ -250,17 +252,21 @@ class UserController extends Controller
                     return $html;
                 })
                 ->editColumn('edit', function ($data) {
-                    if ($data['roleId'] == 4) {
-                        return '
-                        <a href="javascript:;" class="btn btn-sm btn-icon text-primary" onclick="edit_user(' . $data['id'] . ')" title="' . Lang::get('body.edit') . '"><i class="fas fa fa-user-edit text-warning"></i></a>
-                        <a href="javascript:;" class="btn btn-sm btn-icon text-primary" onclick="assigning_class(' . $data['id'] . ')" title="' . Lang::get('body.assigning_class') . '"><i class="fas fa fa-compass text-info"></i></a>
-                        <a href="javascript:;" class="btn btn-sm btn-icon" onclick="delete_user(' . $data['id'] . ')" title="' . Lang::get('body.delete') . '"><i class="fas fa fa-trash text-danger"></i></a>
-                    ';
+                    $permissions = isset(Auth::user()->role->permission) ? json_decode(Auth::user()->role->permission, true) : null;
+
+                    switch ($data['roleCode']) {
+                        case 'teacher':
+                            return '
+                                ' . (!is_null($permissions) && isset($permissions['user']) && $permissions['user']['updating'] == 1 ? '<a href="javascript:;" class="btn btn-sm btn-icon text-primary" onclick="edit_user(' . $data['id'] . ')" title="' . Lang::get('body.edit') . '"><i class="fas fa fa-user-edit text-warning"></i></a>' : '') . '
+                                ' . (!is_null($permissions) && isset($permissions['user']) && $permissions['user']['assigning-class'] == 1 ? '<a href="javascript:;" class="btn btn-sm btn-icon text-primary" onclick="assigning_class(' . $data['id'] . ')" title="' . Lang::get('body.assigning_class') . '"><i class="fas fa fa-compass text-info"></i></a>' : '') . '
+                                ' . (!is_null($permissions) && isset($permissions['user']) && $permissions['user']['deleting'] == 1 ? '<a href="javascript:;" class="btn btn-sm btn-icon" onclick="delete_user(' . $data['id'] . ')" title="' . Lang::get('body.delete') . '"><i class="fas fa fa-trash text-danger"></i></a>' : '') . '
+                            ';
+                        default:
+                            return '
+                                ' . (!is_null($permissions) && isset($permissions['user']) && $permissions['user']['updating'] == 1 ? '<a href="javascript:;" class="btn btn-sm btn-icon text-primary" onclick="edit_user(' . $data['id'] . ')" title="' . Lang::get('body.edit') . '"><i class="fas fa fa-user-edit text-warning"></i></a>' : '') . '
+                                ' . (!is_null($permissions) && isset($permissions['user']) && $permissions['user']['deleting'] == 1 ? '<a href="javascript:;" class="btn btn-sm btn-icon" onclick="delete_user(' . $data['id'] . ')" title="' . Lang::get('body.delete') . '"><i class="fas fa fa-trash text-danger"></i></a>' : '') . '
+                            ';
                     }
-                    return '
-                        <a href="javascript:;" class="btn btn-sm btn-icon text-primary" onclick="edit_user(' . $data['id'] . ')" title="' . Lang::get('body.edit') . '"><i class="fas fa fa-user-edit text-warning"></i></a>
-                        <a href="javascript:;" class="btn btn-sm btn-icon" onclick="delete_user(' . $data['id'] . ')" title="' . Lang::get('body.delete') . '"><i class="fas fa fa-trash text-danger"></i></a>
-                    ';
                 })
                 ->rawColumns(['status', 'assignedClasses', 'edit'])
                 ->make(true);

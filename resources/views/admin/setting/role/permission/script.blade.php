@@ -4,16 +4,6 @@
         /*** Multi Get Form Data's **/
         let i = 0;
         $('[name="permission-form"] input').each(function (key, value) {
-
-            /** Bu kısım tekrar gözden geçirilecek*/
-            // if (this.getAttribute('data-label').split('-').length == 2 && this.getAttribute('data-label').split('-')[0] == 'setting') {
-            //     if (permission[[this.getAttribute('data-label').split('-')[1]]] != undefined) permission[[this.getAttribute('data-label').split('-')[1]]] = null;
-            //     permissionList[this.getAttribute('data-label')] = permission;
-            // } else {
-            //     permission[this.name] = this.checked ? 1 : 0;
-            //     permissionList[this.getAttribute('data-label')] = permission;
-            // }
-
             if (permission[this.name] != undefined) {
                 permission = {};
             }
@@ -56,5 +46,32 @@
         });
         this.classList.add('la-check-square', 'text-primary');
         this.classList.remove('la-times-rectangle', 'text-danger');
+    });
+
+    $(document).ready(function () {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            'url': '{{url('admin/settings/role/permission/list')}}',
+            'type': 'POST',
+            'dataType': 'JSON',
+            'data': {
+                'roleId': {{ $id }},
+            },
+            success: function (data) {
+                if (undefined != data && null != data) {
+                    console.log(JSON.parse(data.permission));
+                    Object.entries(JSON.parse(data.permission)).forEach(entry => {
+                        const [key, value] = entry;
+                        $('[data-label="' + key + '"]').each(function () {
+                            if (value[this.name] != 0 ) this.checked = true;
+                        });
+                    });
+                }
+            }, error: function (data) {
+
+            }
+        });
     });
 </script>

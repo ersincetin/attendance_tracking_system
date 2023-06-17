@@ -68,6 +68,16 @@
                                 <div class="col-auto col-form-label">
                                     <div class="checkbox-inline">
                                         <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                                            <input type="checkbox" name="assigning-class" data-label="user"
+                                            />
+                                            <span></span>
+                                            Assigning Class
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-auto col-form-label">
+                                    <div class="checkbox-inline">
+                                        <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
                                             <input type="checkbox" name="deleting" data-label="user"/>
                                             <span></span>
                                             Deleting
@@ -273,6 +283,71 @@
                                     <div class="checkbox-inline">
                                         <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
                                             <input type="checkbox" name="deleting" data-label="student"/>
+                                            <span></span>
+                                            Deleting
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingFour">
+                        <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseSix">
+                            <i class="fas fa fa-users"></i> Attendance Record
+                        </div>
+                    </div>
+                    <div id="collapseSix" class="collapse" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <div class="form-group row" name="record-all-check">
+                                <div class="col-auto col-form-label">
+                                    <div class="checkbox-inline">
+                                        <span class="text text-sm font-size-xs ml-3"
+                                              name="record"><i class="la la-check-square la-2x text-primary"
+                                                               data-label="record-all-check"></i></span>
+                                    </div>
+                                </div>
+                                <div class="col-auto col-form-label">
+                                    <div class="checkbox-inline">
+                                        <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                                            <input type="checkbox" name="reading" data-label="attendance-record"/>
+                                            <span></span>
+                                            Reading
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-auto col-form-label">
+                                    <div class="checkbox-inline">
+                                        <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                                            <input type="checkbox" name="listening" data-label="attendance-record"/>
+                                            <span></span>
+                                            Listening
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-auto col-form-label">
+                                    <div class="checkbox-inline">
+                                        <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                                            <input type="checkbox" name="creating" data-label="attendance-record"/>
+                                            <span></span>
+                                            Creating
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-auto col-form-label">
+                                    <div class="checkbox-inline">
+                                        <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                                            <input type="checkbox" name="updating" data-label="attendance-record"/>
+                                            <span></span>
+                                            Updating
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-auto col-form-label">
+                                    <div class="checkbox-inline">
+                                        <label class="checkbox checkbox-outline checkbox-outline-2x checkbox-primary">
+                                            <input type="checkbox" name="deleting" data-label="attendance-record"/>
                                             <span></span>
                                             Deleting
                                         </label>
