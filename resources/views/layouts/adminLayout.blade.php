@@ -106,6 +106,9 @@
                                 <span class="menu-text">Dashboard</span>
                             </a>
                         </li>
+                        @php
+                            $permissions = isset(Auth::user()->role->permission) ? json_decode(Auth::user()->role->permission,true) : null
+                        @endphp
                         <li class="menu-section">
                             <h4 class="menu-text">PAGES</h4>
                             <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
@@ -116,95 +119,110 @@
                                 <span class="menu-text">Profile</span>
                             </a>
                         </li>
-                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                            <a href="javascript:;" class="menu-link menu-toggle">
-                                <i class="menu-icon flaticon-web"></i>
-                                <span class="menu-text">Users</span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="menu-submenu">
-                                <i class="menu-arrow"></i>
-                                <ul class="menu-subnav">
+                        @if(!is_null($permissions) && isset($permissions['user']) && $permissions['user']['listening'] == 1)
+                            <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                <a href="javascript:;" class="menu-link menu-toggle">
+                                    <i class="menu-icon flaticon-web"></i>
+                                    <span class="menu-text">Users</span>
+                                    <i class="menu-arrow"></i>
+                                </a>
+                                <div class="menu-submenu">
+                                    <i class="menu-arrow"></i>
+                                    <ul class="menu-subnav">
 
-                                    <li class="menu-item" aria-haspopup="true">
-                                        <a href="{{url('admin/users')}}" class="menu-link">
-                                            <i class="menu-bullet menu-bullet-line">
-                                                <span></span>
-                                            </i>
-                                            <span class="menu-text">User List</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                            <a href="javascript:;" class="menu-link menu-toggle">
-                                <i class="menu-icon flaticon-web"></i>
-                                <span class="menu-text">Teachers</span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="menu-submenu">
-                                <i class="menu-arrow"></i>
-                                <ul class="menu-subnav">
+                                        <li class="menu-item" aria-haspopup="true">
+                                            <a href="{{url('admin/users')}}" class="menu-link">
+                                                <i class="menu-bullet menu-bullet-line">
+                                                    <span></span>
+                                                </i>
+                                                <span class="menu-text">User List</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        @endif
 
-                                    <li class="menu-item" aria-haspopup="true">
-                                        <a href="{{url('admin/teachers')}}" class="menu-link">
-                                            <i class="menu-bullet menu-bullet-line">
-                                                <span></span>
-                                            </i>
-                                            <span class="menu-text">Teacher List</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                            <a href="javascript:;" class="menu-link menu-toggle">
-                                <i class="menu-icon flaticon-web"></i>
-                                <span class="menu-text">Student Affairs</span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="menu-submenu">
-                                <i class="menu-arrow"></i>
-                                <ul class="menu-subnav">
+                        @if(!is_null($permissions) && isset($permissions['teacher']) && $permissions['teacher']['listening'] == 1)
+                            <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                <a href="javascript:;" class="menu-link menu-toggle">
+                                    <i class="menu-icon flaticon-web"></i>
+                                    <span class="menu-text">Teachers</span>
+                                    <i class="menu-arrow"></i>
+                                </a>
+                                <div class="menu-submenu">
+                                    <i class="menu-arrow"></i>
+                                    <ul class="menu-subnav">
 
-                                    <li class="menu-item" aria-haspopup="true">
-                                        <a href="{{url('admin/student_affairs')}}" class="menu-link">
-                                            <i class="menu-bullet menu-bullet-line">
-                                                <span></span>
-                                            </i>
-                                            <span class="menu-text">Student Affairs List</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                            <a href="javascript:;" class="menu-link menu-toggle">
-                                <i class="menu-icon flaticon-graphic"></i>
-                                <span class="menu-text">Students</span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="menu-submenu">
-                                <i class="menu-arrow"></i>
-                                <ul class="menu-subnav">
-                                    <li class="menu-item" aria-haspopup="true">
-                                        <a href="{{url('admin/students')}}" class="menu-link">
-                                            <i class="menu-bullet menu-bullet-dot">
-                                                <span></span>
-                                            </i>
-                                            <span class="menu-text">Student List</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="menu-item" aria-haspopup="true">
-                            <a href="{{url('admin/attendance_record')}}" class="menu-link">
-                                <i class="menu-icon flaticon-book"></i>
-                                <span class="menu-text">Attendance Record</span>
-                            </a>
-                        </li>
+                                        <li class="menu-item" aria-haspopup="true">
+                                            <a href="{{url('admin/teachers')}}" class="menu-link">
+                                                <i class="menu-bullet menu-bullet-line">
+                                                    <span></span>
+                                                </i>
+                                                <span class="menu-text">Teacher List</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        @endif
+
+                        @if(!is_null($permissions) && isset($permissions['user']) && $permissions['student-affairs']['listening'] == 1)
+                            <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                <a href="javascript:;" class="menu-link menu-toggle">
+                                    <i class="menu-icon flaticon-web"></i>
+                                    <span class="menu-text">Student Affairs</span>
+                                    <i class="menu-arrow"></i>
+                                </a>
+                                <div class="menu-submenu">
+                                    <i class="menu-arrow"></i>
+                                    <ul class="menu-subnav">
+
+                                        <li class="menu-item" aria-haspopup="true">
+                                            <a href="{{url('admin/student_affairs')}}" class="menu-link">
+                                                <i class="menu-bullet menu-bullet-line">
+                                                    <span></span>
+                                                </i>
+                                                <span class="menu-text">Student Affairs List</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        @endif
+
+                        @if(!is_null($permissions) && isset($permissions['student']) && $permissions['student']['listening'] == 1)
+                            <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                <a href="javascript:;" class="menu-link menu-toggle">
+                                    <i class="menu-icon flaticon-graphic"></i>
+                                    <span class="menu-text">Students</span>
+                                    <i class="menu-arrow"></i>
+                                </a>
+                                <div class="menu-submenu">
+                                    <i class="menu-arrow"></i>
+                                    <ul class="menu-subnav">
+                                        <li class="menu-item" aria-haspopup="true">
+                                            <a href="{{url('admin/students')}}" class="menu-link">
+                                                <i class="menu-bullet menu-bullet-dot">
+                                                    <span></span>
+                                                </i>
+                                                <span class="menu-text">Student List</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        @endif
+
+                        @if(!is_null($permissions) && isset($permissions['attendance-record']) && $permissions['attendance-record']['listening'] == 1)
+                            <li class="menu-item" aria-haspopup="true">
+                                <a href="{{url('admin/attendance_record')}}" class="menu-link">
+                                    <i class="menu-icon flaticon-book"></i>
+                                    <span class="menu-text">Attendance Record</span>
+                                </a>
+                            </li>
+                        @endif
+
                         <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                             <a href="javascript:;" class="menu-link menu-toggle">
                                 <i class="menu-icon flaticon-settings-1"></i>
@@ -349,9 +367,10 @@
                                 class="btn btn-icon btn-icon-mobile w-auto btn-clean d-flex align-items-center btn-lg px-2"
                                 id="kt_quick_user_toggle">
                                 <span
-                                {{--                                    class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{Auth::user()->firstname}}</span>--}}
+                                    class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{Auth::user()->firstname}}</span>
                                 <span class="symbol symbol-lg-35 symbol-25 symbol-light-info">
-{{--											<span class="symbol-label font-size-h5 font-weight-bold">{{Auth::user()->firstname[0]}}</span>--}}
+											<span
+                                                class="symbol-label font-size-h5 font-weight-bold">{{Auth::user()->firstname[0]}}</span>
 										</span>
                             </div>
                         </div>
@@ -417,7 +436,8 @@
                 <i class="symbol-badge bg-success"></i>
             </div>
             <div class="d-flex flex-column">
-                <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">James Jones</a>
+                <a href="#"
+                   class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{Auth::user()->firstname.' '.Auth::user()->second_name.' '.Auth::user()->lastname}}</a>
                 <div class="text-muted mt-1">Application Developer</div>
                 <div class="navi mt-2">
                     <a href="#" class="navi-item">

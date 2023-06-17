@@ -30,7 +30,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index']);
 
     Route::get('users', [UserController::class, 'index']);
@@ -70,6 +70,7 @@ Route::prefix('admin')->group(function () {
             Route::post('delete', [RoleController::class, 'destroy']);
 
             Route::get('permission/{id}', [RoleController::class, 'permission']);
+            Route::post('permission/list', [RoleController::class, 'permissionList']);
             Route::post('permission/update', [RoleController::class, 'permissionUpdate']);
         });
 
