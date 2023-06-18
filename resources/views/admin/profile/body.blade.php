@@ -46,7 +46,7 @@
                 </div>
                 <div class="card-toolbar m-1 p-1">
                     <button class="btn btn-sm btn-outline-primary mr-2" name="save-btn">@lang('body.update')</button>
-{{--                    <button class="btn btn-outline-danger" name="cancel-btn">@lang('body.cancel')</button>--}}
+                    {{--                    <button class="btn btn-outline-danger" name="cancel-btn">@lang('body.cancel')</button>--}}
                 </div>
             </div>
             <form class="form" name="user-form">
@@ -130,8 +130,8 @@
                 <div class="card-body d-none" name="password-field">
                     <div class="alert alert-custom alert-light-info fade show mb-10 col-9" role="alert">
                         <div class="alert-icon"><i class="fas fa-info-circle"></i></div>
-                        <div class="alert-text font-weight-bold">Şifrenizi unuttuysanız yöneticiniz ile iletişime
-                            geçiniz.
+                        <div class="alert-text font-weight-bold">
+                            @lang('body.password_forget_info')
                         </div>
                         <div class="alert-close">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -142,24 +142,26 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label text-alert">Current Password</label>
+                        <label
+                            class="col-xl-3 col-lg-3 col-form-label text-alert">@lang('alert.current_password')</label>
                         <div class="col-lg-9 col-xl-6">
                             <input type="password" class="form-control form-control-lg form-control-solid mb-2" value=""
-                                   placeholder="Current password"/>
+                                   placeholder="@lang('alert.current_password')" name="current-password"/>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label text-alert">New Password</label>
+                        <label class="col-xl-3 col-lg-3 col-form-label text-alert">@lang('alert.new_password')</label>
                         <div class="col-lg-9 col-xl-6">
                             <input type="password" class="form-control form-control-lg form-control-solid" value=""
-                                   placeholder="New password"/>
+                                   placeholder="@lang('alert.new_password')" name="new-password"/>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-xl-3 col-lg-3 col-form-label text-alert">Verify Password</label>
+                        <label
+                            class="col-xl-3 col-lg-3 col-form-label text-alert">@lang('alert.verify_password')</label>
                         <div class="col-lg-9 col-xl-6">
                             <input type="password" class="form-control form-control-lg form-control-solid" value=""
-                                   placeholder="Verify password"/>
+                                   placeholder="@lang('alert.verify_password')" name="verify-password"/>
                         </div>
                     </div>
                 </div>
