@@ -79,7 +79,7 @@ return [
     'record_delete' => 'Kayıt Sil',
     'record_name' => 'Kayıt İsmi',
     'user' => 'Kullanıcı',
-    '' => '',
+    'password_forget_info' => 'Parolanızı unuttuysanız lütfen yöneticiniz ile iletişime geçiniz.',
     '' => '',
     '' => '',
     '' => '',

@@ -79,7 +79,7 @@ return [
     'record_delete' => 'Record Delete',
     'record_name' => 'Record Name',
     'user' => 'User',
-    '' => '',
+    'password_forget_info' => 'If you forgot your password, contact your administrator.',
     '' => '',
     '' => '',
     '' => '',
