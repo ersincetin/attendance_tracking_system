@@ -34,66 +34,6 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr name="row-item-1">
-                                <td name="row-count">1</td>
-                                <td>
-                                    <div class="form-group mb-0 pb-0 row">
-                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            <select class="form-control" id="select-1"
-                                                    name="multi-class" data-container="body">
-                                            </select>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mb-0 pb-0 row">
-                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            <select class="form-control  "
-                                                    name="sex" required>
-                                                <option value="0">@lang('body.choose')</option>
-                                                <option value="M">@lang('body.male')</option>
-                                                <option value="F">@lang('body.female')</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mb-0 pb-0">
-                                        <input type="text" class="form-control  "
-                                               name="identityNumber" required
-                                               placeholder="Enter @lang('body.identity_number')"/>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mb-0 pb-0">
-                                        <input type="text" class="form-control  "
-                                               name="firstname" required
-                                               placeholder="Enter @lang('body.firstname')"/>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mb-0 pb-0">
-                                        <input type="text" class="form-control  "
-                                               name="secondName"
-                                               placeholder="Enter @lang('body.second_name')"/>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mb-0 pb-0">
-                                        <input type="text" class="form-control  "
-                                               name="lastname" required
-                                               placeholder="Enter @lang('body.lastname')"/>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group mb-0 pb-0">
-                                        <a href="javascript:;" class="btn btn-sm btn-icon"
-                                           title="@lang('body.delete')">
-                                            <i class="fas fa fa-trash text-danger" data-value="item-1"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>

@@ -57,6 +57,9 @@
 
     $(document).on('click', '[name="user-add-multi-btn"]', function () {
         $('#user_modal_xl').find('.modal-title').text("Çoklu Öğrenci Ekleme").end().modal('show');
+        $('[name="multi-student-add-table"] tbody').html('');
+        count = 0;
+        $('[name="row-add"]').trigger('click');
         getClassList();
     });
 
@@ -102,6 +105,9 @@
 
     /** Save AJAX */
     $(document).on('click', '[name="save-btn"]', function () {
+        /*Form Validation */
+        if (!formValidate('student-form')) return;
+
         let url;
         if ($('[name="studentId"]').val().length > 0) {
             url = '{{url('admin/student/update')}}';

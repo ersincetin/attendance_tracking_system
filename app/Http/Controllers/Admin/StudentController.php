@@ -39,7 +39,6 @@ class StudentController extends Controller
             $errorStudentArray = array();
             if (isset($request->students) && count($request->students)) {
                 foreach ($request->students as $key => $student) {
-                    echo $student['multi-class'];
                     $student = new Student([
                         'sex' => isset($student['sex']) ? $student['sex'] : null,
                         'status' => isset($student['status']) ? $student['status'] : 1,
@@ -52,8 +51,8 @@ class StudentController extends Controller
                     ]);
                     if (!$student->save()) array_push($errorStudentArray, $student);
                 }
-                if (count($errorStudentArray) > 0) return 1;
-                return $errorStudentArray;
+                if (count($errorStudentArray) > 0) return $errorStudentArray;
+                return 1;
             }
             $student = new Student([
                 'sex' => isset($request->sex) ? $request->sex : null,

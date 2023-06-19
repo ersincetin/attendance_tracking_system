@@ -38,24 +38,6 @@
                 }
             ]
         });
-        // switch ($('[name="users_datatable"]').attr('data-label')) {
-        //     case 'teacher':
-        //         userDataTable.column(1).visible(false);
-        //         userDataTable.column(2).visible(false);
-        //         break;
-        //     case 'student-affairs':
-        //         userDataTable.column(1).visible(false);
-        //         userDataTable.column(2).visible(false);
-        //         break;
-        //     case 'student':
-        //         userDataTable.column(1).visible(false);
-        //         userDataTable.column(2).visible(true);
-        //         break;
-        //     default:
-        //         userDataTable.column(1).visible(true);
-        //         userDataTable.column(2).visible(false);
-        // }
-
         setRequiredDangerText('user-form');
     });
 
@@ -133,6 +115,7 @@
         if ($('[name="classId"]').val() != undefined) formData.append('classId', $('[name="classId"]').val());
         formData.append('sex', $('[name="sex"]').val());
         formData.append('username', $('[name="username"]').val());
+
         formData.append('identityNumber', $('[name="identityNumber"]').val());
         formData.append('firstname', $('[name="firstname"]').val());
         formData.append('secondName', $('[name="secondName"]').val());

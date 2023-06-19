@@ -17,7 +17,15 @@
                             setAlert('error', 'Failed', 'Identity Number Failed');
                             formInput[i].classList.add('is-invalid');
                         }
+
                 } else {
+                    /** Identity Number Check*/
+                    if (formInput[i].value.length > 0 && formInput[i].name == 'identityNumber')
+                        if (!identityNumberControl(formInput[i].value)) {
+                            setAlert('error', 'Failed', 'Identity Number Failed');
+                            formInput[i].classList.add('is-invalid');
+                        }
+                    
                     if (formInput[i].required) formInput[i].classList.add('is-invalid');
                 }
             } else if (formInput[i].type == 'select-one') {

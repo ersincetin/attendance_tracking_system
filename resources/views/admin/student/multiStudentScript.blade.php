@@ -1,5 +1,5 @@
 <script>
-    let count = 1;
+    let count = 0;
     let rowItem = 0;
     let datatable;
     $(document).ready(function () {
@@ -18,7 +18,7 @@
             '                                <td>\n' +
             '                                    <div class="form-group mb-0 pb-0 row">\n' +
             '                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">\n' +
-            '                                            <select class="form-control" name="multi-class" id="select-' + (count + 1) + '">' +
+            '                                            <select class="form-control" name="multi-class" id="select-' + (count + 1) + '" required>' +
             '                                            </select>\n' +
             '                                        </div>\n' +
             '                                    </div>\n' +
@@ -72,6 +72,7 @@
             '                            </tr>');
         count++;
         getClassList();
+        setRequiredDangerText('multi-user-form');
     });
     $(document).on('click', '.fa-trash', function () {
         rowItem = $('[name="row-count"]');
@@ -88,7 +89,7 @@
         let studentList = [];
 
         /**Validation Control*/
-        //if (!formValidate('multi-user-form')) return;
+        if (!formValidate('multi-user-form')) return;
 
         /*** Multi Get Form Data's **/
         $('[name="multi-user-form"]').serializeArray().forEach(function (key) {
@@ -110,21 +111,13 @@
                 'students': Object.assign({}, studentList)
             },
             success: function (data) {
-                if (undefined != data) {
+                if (undefined != data ) {
                     $('#user_modal_xl').modal('hide');
-                    if ($('[name="userId"]').val().length > 0) {
-                        setAlert('success', '@lang('alert.user_update')', '@lang('alert.update_successfully')');
-                    } else {
-                        setAlert('success', '@lang('alert.user_add')', '@lang('alert.save_successfully')');
-                    }
+                    setAlert('success', '@lang('alert.multi_student_add')', '@lang('alert.save_successfully')');
                     reloadDataTable();
                 }
             }, error: function (data) {
-                if ($('[name="userId"]').val().length > 0) {
-                    setAlert('error', '@lang('alert.user_update')', '@lang('alert.update_something_went_wrong')');
-                } else {
-                    setAlert('error', '@lang('alert.user_add')', '@lang('alert.save_something_went_wrong')');
-                }
+                setAlert('error', '@lang('alert.multi_student_add')', '@lang('alert.save_something_went_wrong')');
             }
         });
     });

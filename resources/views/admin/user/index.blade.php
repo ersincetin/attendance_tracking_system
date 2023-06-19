@@ -37,8 +37,8 @@
     <script src="{{asset("plugins/custom/datatables/datatables.bundle.js")}}"></script>
     @include("admin.user.script")
     @include("generalJS.sweetAlert.alert")
-    @include("generalJS.identityNumberControl.script")
     @include("generalJS.formValidation.script")
     @include("generalJS.requiredControl.script")
+    @include("generalJS.identityNumberControl.script")
 @endsection
 
