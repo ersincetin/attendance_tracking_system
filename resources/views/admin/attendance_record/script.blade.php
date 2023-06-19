@@ -42,6 +42,7 @@
         getClassAndCourseList();
         getSemesterList();
         getActiveWeekList();
+        $('[name="attendance-record-add-datatable"]').html('');
     });
 
     /**Get Semester List*/
@@ -178,6 +179,17 @@
                         recordId: id
                     },
                     beforeSend: function () {
+                        Swal.fire({
+                            title: "@lang('body.deleting_now')",
+                            timer: 5000,
+                            onOpen: function () {
+                                Swal.showLoading()
+                            }
+                        }).then(function (result) {
+                            if (result.dismiss === "timer") {
+                                console.log("I was closed by the timer")
+                            }
+                        });
                     },
                     success: function (data) {
                         if (undefined != data && 1 == data) {

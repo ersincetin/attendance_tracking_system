@@ -47,7 +47,7 @@
                     <div class="form-group mb-0 pb-0 row">
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <label>@lang('body.sex'): <span class="text-danger">*</span></label>
-                            <select class="form-control form-control-solid" name="sex">
+                            <select class="form-control form-control-solid" name="sex" required>
                                 <option value="0">@lang('body.choose')</option>
                                 <option value="M">@lang('body.male')</option>
                                 <option value="F">@lang('body.female')</option>

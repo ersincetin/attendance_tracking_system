@@ -33,6 +33,7 @@ return [
     'verify_password' => 'Parolayı Doğrula',
     'password_error' => 'Parola Hatası',
     'new_current_password_error' => 'Mevcut parola ile yeni parola aynı olamaz.',
+    'multi_student_add' => 'Çoklu Öğrenci Ekleme',
     '' => '',
     '' => '',
     '' => '',

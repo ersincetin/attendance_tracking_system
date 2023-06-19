@@ -1,6 +1,6 @@
 @extends('layouts.adminLayout')
 @section('Title')
-    @lang('body.attendance-record')
+    @lang('body.attendance_record')
 @endsection
 @section('Meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
