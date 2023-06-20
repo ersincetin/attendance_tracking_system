@@ -280,19 +280,11 @@
                                         </div>
                                     </li>
                                     <li class="menu-item" aria-haspopup="true">
-                                        <a href="layout/subheader/toolbar.html" class="menu-link">
+                                        <a href="{{url('admin/settings/site_setting')}}" class="menu-link">
                                             <i class="menu-bullet menu-bullet-dot">
                                                 <span></span>
                                             </i>
-                                            <span class="menu-text">Toolbar Nav</span>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item" aria-haspopup="true">
-                                        <a href="layout/subheader/actions.html" class="menu-link">
-                                            <i class="menu-bullet menu-bullet-dot">
-                                                <span></span>
-                                            </i>
-                                            <span class="menu-text">Actions Buttons</span>
+                                            <span class="menu-text">@lang('body.site_settings')</span>
                                         </a>
                                     </li>
                                 </ul>

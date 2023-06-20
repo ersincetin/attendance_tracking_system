@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Setting\ClassController;
 use App\Http\Controllers\Admin\Setting\CourseController;
 use App\Http\Controllers\Admin\Setting\RoleController;
 use App\Http\Controllers\Admin\Setting\SemesterController;
+use App\Http\Controllers\Admin\Setting\SiteSettingController;
 use App\Http\Controllers\admin\StudentController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -103,6 +104,12 @@ Route::prefix('admin')->middleware('auth')->group(function () {
             Route::post('create', [SemesterController::class, 'store']);
             Route::post('update', [SemesterController::class, 'update']);
             Route::post('delete', [SemesterController::class, 'destroy']);
+        });
+
+        Route::prefix('site_setting')->group(function () {
+            Route::get('/', [SiteSettingController::class, 'index']);
+            Route::post('get', [SemesterController::class, 'show']);
+            Route::post('save', [SiteSettingController::class, 'save']);
         });
 
     });

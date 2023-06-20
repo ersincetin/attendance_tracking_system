@@ -36,7 +36,7 @@ return [
     'password_error' => 'Parola Hatası',
     'new_current_password_error' => 'The current password can not be equal to the new password.',
     'multi_student_add' => 'Multiple Student Add',
-    '' => '',
+    'setting_save' => 'Setting Save',
     '' => '',
     '' => '',
     '' => '',
