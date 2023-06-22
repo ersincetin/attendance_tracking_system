@@ -14,17 +14,19 @@
                 responsive: true,
                 scrollX: true,
                 paging: false,
+                info: false,
                 searching: false,
+                scrollCollapse: true,
                 ajax: {
                     'headers': {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     'url': "{{url("admin/attendance_record/getFilteredClassDataTable")}}",
-                    'data': {
-                        classId: classId,
-                        courseId: courseId,
-                        semesterId: semesterId,
-                        week: weekIds,
+                    'data': function (data) {
+                        data.classId = classId;
+                        data.courseId = courseId;
+                        data.semesterId = semesterId;
+                        data.week = weekIds;
                     },
                     'error': function (t) {
                     }
@@ -45,7 +47,7 @@
 
     function reloadAttendanceRecordInputDataTable() {
         setParameters();
-        $('[name="attendance-record-add-datatable"]').reload();
+        attendanceRecordInputDataTable.ajax.reload();
     }
 
     function setParameters() {

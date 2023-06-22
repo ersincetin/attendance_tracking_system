@@ -92,7 +92,7 @@ return [
     'homepage_header' => 'Anasayfa Başlık',
     'homepage_subheader' => 'Anasayfa Alt Başlık',
     'processing' => 'İşleniyor',
-    '' => '',
+    'weeks' => 'Haftalar',
     '' => '',
     '' => '',
     '' => '',

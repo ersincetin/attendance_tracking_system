@@ -1,6 +1,6 @@
 <div class="modal fade" name="attendance-record-modal" data-backdrop="static" tabindex="-1" role="dialog"
      aria-labelledby="staticBackdrop" aria-hidden="true">
-    <div class="modal-dialog modal-xl-special" role="document">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl-special" role="document">
         <div class="modal-content">
             <div class="modal-header m-2 p-2">
                 <h5 class="modal-title"></h5>
@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body m-1 p-1">
-                <form class="mb-3">
+                <form class="mb-3" name="attendance-record-search-form">
                     <input type="hidden" name="recordId">
                     <div class="row m-0 p-0">
                         <div class="col-lg-3 mb-lg-0 mb-6">

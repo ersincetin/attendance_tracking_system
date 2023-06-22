@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Setting;
 use App\Http\Controllers\Controller;
 use App\Models\Classes;
 use App\Models\Course;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\View\View;
@@ -62,18 +63,35 @@ class ClassController extends Controller
     public function list(Request $request)
     {
         if ($request->ajax()) {
-
-            $classes = Classes::where('assigning_course', '!=', null)
-                ->orderBy('id')
-                ->get();
-            foreach ($classes as $class) {
-                $list = array();
-                foreach (explode(',', substr($class->assigning_course, 1, -1)) as $courseId)
-                    array_push($list, substr($courseId, 1, -1));
-                $courses = Course::whereIn('id', $list)->orderBy('id')->get(['id', 'name']);
-                $class->assigning_course = json_encode($courses);
+            if (isset($request->userId)) {
+                $user = User::where('id', $request->userId)->first();
+                $assigning_class = json_decode($user->assigning_class, true);
+                $classIds = array();
+                foreach ($assigning_class as $key => $value) {
+                    array_push($classIds, $key);
+                }
+                $classes = Classes::whereIn('id', $classIds)
+                    ->orderBy('id')
+                    ->get();
+                foreach ($classes as $class) {
+                    $courses = Course::whereIn('id', $assigning_class[$class->id])->orderBy('id')->get(['id', 'name']);
+                    $class->assigning_course = json_encode($courses);
+                }
+                return $classes;
+            } else {
+                $classes = Classes::where('assigning_course', '!=', null)
+                    ->orderBy('id')
+                    ->get();
+                foreach ($classes as $class) {
+                    $list = array();
+                    foreach (explode(',', substr($class->assigning_course, 1, -1)) as $courseId)
+                        array_push($list, substr($courseId, 1, -1));
+                    $courses = Course::whereIn('id', $list)->orderBy('id')->get(['id', 'name']);
+                    $class->assigning_course = json_encode($courses);
+                }
+                return $classes;
             }
-            return $classes;
+
         } else {
             echo "Sadece AJAX sorgular için";
         }

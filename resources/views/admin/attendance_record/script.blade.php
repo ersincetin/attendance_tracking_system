@@ -17,12 +17,14 @@
                 }
             },
             'columns': [
-                {data: 'orderNumber', className: 'w-5px'},
-                {data: 'user', className: 'w-15px'},
-                {data: 'class', className: 'w-15px'},
-                {data: 'semester', className: 'w-15px'},
+                {data: 'orderNumber'},
+                {data: 'user'},
+                {data: 'semester'},
+                {data: 'class'},
+                {data: 'course'},
+                {data: 'weeks'},
                 {data: 'recordName', className: 'w-auto'},
-                {data: 'createdAt', className: 'w-125px'},
+                {data: 'createdAt'},
                 {
                     data: 'edit',
                     className: 'text-right',
@@ -42,7 +44,11 @@
         getClassAndCourseList();
         getSemesterList();
         getActiveWeekList();
-        $('[name="attendance-record-add-datatable"]').html('');
+        /*DataTable Clear and Destroy*/
+        $('[name="attendance-record-add-datatable"] tbody').html(' ');
+        $('[name="attendance-record-add-datatable"]').dataTable().fnClearTable();
+        $('[name="attendance-record-add-datatable"]').dataTable().fnDraw();
+        $('[name="attendance-record-add-datatable"]').dataTable().fnDestroy();
     });
 
     /**Get Semester List*/
@@ -88,6 +94,9 @@
             'url': '{{url('admin/settings/class/getList')}}',
             'type': 'POST',
             'dataType': 'JSON',
+            'data': {
+                userId: {{Auth::user()->id}}
+            },
             beforeSend: function () {
                 $('[name="class"]').empty();
             },
@@ -109,7 +118,7 @@
 
     /** Save AJAX */
     $(document).on('click', '[name="save-btn"]', function () {
-        let studentList = {}, weekList = {}, dayList = {};
+        let studentList = {}, weekList = {}, dayList = {}, control = false, allInputEmptyControl = false;
         $('[name="attendance-record-add-datatable"] tbody input').each(function () {
             if (studentList[this.name.split('-')[0]] == undefined) {
                 studentList[this.name.split('-')[0]] = weekList;
@@ -120,41 +129,190 @@
             if (studentList[this.name.split('-')[0]][this.name.split('-')[3]][this.name.split('-')[4]] == undefined) {
                 studentList[this.name.split('-')[0]][this.name.split('-')[3]][this.name.split('-')[4]] = this.value.length > 0 ? parseInt(this.value) : 0;
             }
-            studentList[this.name.split('-')[0]][this.name.split('-')[3]][this.name.split('-')[4]] = this.value.length > 0 ? parseInt(this.value) : 0;
+            if ($('[name="recordId"]').val().length == 0) {
+                if (this.value.length == 0 && !control) control = true;
+                if (this.value.length > 0) {
+                    allInputEmptyControl = true;
+                }
+            }
+            weekList = {};
+            dayList = {};
         });
-        console.log(studentList);
+        /**All Input Empty Control*/
+        if ($('[name="recordId"]').val().length == 0) {
+            if (!allInputEmptyControl) {
+                Swal.fire({
+                    title: "Tüm girdiler boş",
+                    text: "Tüm girdiler boş olamaz",
+                    icon: "info",
+                    showCancelButton: false,
+                    confirmButtonText: "<i class='fas fa-check fa-2x text-white'></i>"
+                });
+                return;
+            }
+        }
+        /*End*/
+        let url;
+        if ($('[name="recordId"]').val().length > 0) {
+            url = '{{url('admin/attendance_record/update')}}';
+        } else {
+            url = '{{url('admin/attendance_record/create')}}';
+        }
+        if (control) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "Girmediğiniz Alanlar 0 olarak kayıt edilecektir.",
+                icon: "info",
+                showCancelButton: true,
+                cancelButtonText: "@lang('body.cancel')",
+                confirmButtonText: "@lang('body.save')"
+            }).then(function (result) {
+                if (result.value) {
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        'url': url,
+                        'type': 'POST',
+                        'dataType': 'JSON',
+                        'data': {
+                            'recordId': $('[name="recordId"]').val().length > 0 ? $('[name="recordId"]').val() : 0,
+                            'classId': $('[name="class"]').val().split('-')[0],
+                            'courseId': $('[name="class"]').val().split('-')[1],
+                            'semesterId': $('[name="semester"]').val(),
+                            'inputs': Object.assign({}, studentList)
+                        },
+                        success: function (data) {
+                            if (undefined != data) {
+                                $('[name="attendance-record-modal"]').modal('hide');
+                                if ($('[name="recordId"]').val().length > 0) {
+                                    setAlert('success', '@lang('alert.attendance_record_update')', '@lang('alert.update_successfully')');
+                                } else {
+                                    setAlert('success', '@lang('alert.attendance_record_create')', '@lang('alert.save_successfully')');
+                                }
+                                reloadDataTable();
+                            }
+                        }, error: function (data) {
+                            if ($('[name="recordId"]').val().length > 0) {
+                                setAlert('error', '@lang('alert.attendance_record_update')', '@lang('alert.update_something_went_wrong')');
+                            } else {
+                                setAlert('error', '@lang('alert.attendance_record_create')', '@lang('alert.save_something_went_wrong')');
+                            }
+                        }
+                    });
+                }
+            });
+        } else {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                'url': url,
+                'type': 'POST',
+                'dataType': 'JSON',
+                'data': {
+                    'recordId': $('[name="recordId"]').val().length > 0 ? $('[name="recordId"]').val() : 0,
+                    'classId': $('[name="class"]').val().split('-')[0],
+                    'courseId': $('[name="class"]').val().split('-')[1],
+                    'semesterId': $('[name="semester"]').val(),
+                    'inputs': Object.assign({}, studentList)
+                },
+                success: function (data) {
+                    if (undefined != data) {
+                        $('[name="attendance-record-modal"]').modal('hide');
+                        if ($('[name="recordId"]').val().length > 0) {
+                            setAlert('success', '@lang('alert.attendance_record_update')', '@lang('alert.update_successfully')');
+                        } else {
+                            setAlert('success', '@lang('alert.attendance_record_create')', '@lang('alert.save_successfully')');
+                        }
+                        reloadDataTable();
+                    }
+                }, error: function (data) {
+                    if ($('[name="recordId"]').val().length > 0) {
+                        setAlert('error', '@lang('alert.attendance_record_update')', '@lang('alert.update_something_went_wrong')');
+                    } else {
+                        setAlert('error', '@lang('alert.attendance_record_create')', '@lang('alert.save_something_went_wrong')');
+                    }
+                }
+            });
+        }
+
+    });
+
+    function edit_attendance_record(id) {
+
+        $('[name="attendance-record-add-btn"]').trigger('click');
+
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            'url': '{{url('admin/attendance_record/create')}}',
+            'url': '{{url("admin/attendance_record/get")}}',
             'type': 'POST',
             'dataType': 'JSON',
             'data': {
-                'classId': $('[name="class"]').val().split('-')[0],
-                'courseId': $('[name="class"]').val().split('-')[1],
-                'semesterId': $('[name="semester"]').val(),
-                'inputs': Object.assign({}, studentList)
+                recordId: id
             },
             success: function (data) {
-                if (undefined != data) {
-                    $('[name="attendance-record-modal"]').modal('hide');
-                    if ($('[name="recordId"]').val().length > 0) {
-                        setAlert('success', '@lang('alert.attendance_record_update')', '@lang('alert.update_successfully')');
-                    } else {
-                        setAlert('success', '@lang('alert.attendance_record_create')', '@lang('alert.save_successfully')');
+                if (undefined != data && null != data) {
+                    let weeks = [], classes = [], semesters = [];
+                    for (let i = 0; i < data.length; i++) {
+                        classes.push(data[i].class_id + '-' + data[i].course_id);
+                        semesters.push(data[i].semester_id);
+                        weeks.push(data[i].weeks);
                     }
-                    reloadDataTable();
+                    $('[name="class"]').val(classes);
+                    $('[name="semester"]').val(semesters);
+                    $('[name="week"]').val(weeks);
+
+                    $('[name="class"]').selectpicker('refresh');
+                    $('[name="semester"]').selectpicker('refresh');
+                    $('[name="week"]').selectpicker('refresh');
+                    $('[name="recordId"]').val(id);
+                    $('[name="search-btn"]').trigger('click');
+
+                    getAttendanceRecordInputs(id);
+
                 }
             }, error: function (data) {
-                if ($('[name="recordId"]').val().length > 0) {
-                    setAlert('error', '@lang('alert.attendance_record_update')', '@lang('alert.update_something_went_wrong')');
-                } else {
-                    setAlert('error', '@lang('alert.attendance_record_create')', '@lang('alert.save_something_went_wrong')');
-                }
+
             }
         });
-    });
+    }
+
+    /**Get Attendance Record Inputs*/
+
+    function getAttendanceRecordInputs(id) {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            'url': '{{url("admin/attendance_record/getList")}}',
+            'type': 'POST',
+            'dataType': 'JSON',
+            'data': {
+                recordId: id
+            },
+            success: function (data) {
+                if (undefined != data && null != data) {
+                    data.forEach(function (item) {
+                        $('[name="' + item.student_id + '-' + $('[name="class"]').val().split('-')[0] + '-' + $('[name="class"]').val().split('-')[1] + '-' + item.week + '-' + item.day + '"]').val(parseInt(item.input)).trigger('mouseup');
+                        $('[name="' + item.student_id + '-' + $('[name="class"]').val().split('-')[0] + '-' + $('[name="class"]').val().split('-')[1] + '-' + item.week + '-' + item.day + '"]').removeClass('border-primary');
+                        $('[name="' + item.student_id + '-' + $('[name="class"]').val().split('-')[0] + '-' + $('[name="class"]').val().split('-')[1] + '-' + item.week + '-' + item.day + '"]').addClass('border-success');
+                    });
+                    $('[name="attendance-record-add-datatable"] tbody input').each(function () {
+                        if (this.value.length == 0) {
+                            this.classList.remove('border-primary');
+                            this.classList.add('border-secondary');
+                            this.value = 0;
+                        }
+                    });
+                }
+            }, error: function (data) {
+
+            }
+        });
+    }
 
     /**Role Delete Function*/
     function delete_attendance_record(id) {

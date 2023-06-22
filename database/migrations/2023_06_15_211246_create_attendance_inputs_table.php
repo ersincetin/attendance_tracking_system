@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,6 +13,8 @@ return new class extends Migration
         Schema::create('attendance_record_inputs', function (Blueprint $table) {
             $table->id();
             $table->integer('record_id')->nullable(false);
+            $table->integer('student_id')->nullable(false);
+            $table->tinyInteger('week')->nullable(false);
             $table->tinyInteger('day')->nullable(false);
             $table->tinyInteger('input')->nullable(false);
             $table->timestamp('created_at')->nullable(false);

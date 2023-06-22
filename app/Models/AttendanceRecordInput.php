@@ -17,6 +17,8 @@ class AttendanceRecordInput extends Model
     protected $fillable = [
         'id',
         'record_id',
+        'student_id',
+        'week',
         'day',
         'input',
         'created_at',

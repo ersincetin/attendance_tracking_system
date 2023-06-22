@@ -61,7 +61,7 @@ class SemesterController extends Controller
     public function list(Request $request)
     {
         if ($request->ajax()) {
-            return Semester::all();
+            return Semester::where('status', '!=', '0')->get();
         } else {
             echo "Sadece AJAX sorgular için";
         }
