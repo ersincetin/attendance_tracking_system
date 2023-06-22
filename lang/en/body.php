@@ -92,7 +92,7 @@ return [
     'homepage_header' => 'Homepage Header',
     'homepage_subheader' => 'Homepage Subheader',
     'processing' => 'Processing',
-    '' => '',
+    'weeks' => 'Weeks',
     '' => '',
     '' => '',
     '' => '',

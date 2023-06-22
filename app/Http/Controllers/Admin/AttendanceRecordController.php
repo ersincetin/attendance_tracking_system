@@ -8,6 +8,7 @@ use App\Models\AttendanceRecordInput;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
@@ -36,12 +37,13 @@ class AttendanceRecordController extends Controller
     public function store(Request $request)
     {
         if ($request->ajax()) {
-            $userId = 33;
+            $userId = Auth::user()->id;
             $record = new AttendanceRecord([
                 'user_id' => $userId,
                 'class_id' => $request->classId,
                 'course_id' => $request->courseId,
                 'semester_id' => $request->semesterId,
+                'created_at' => date("Y-m-d H:i:s")
             ]);
             if ($record->save()) $recordId = $record->id;
 
@@ -51,18 +53,21 @@ class AttendanceRecordController extends Controller
                 /** $key => studentId*/
                 foreach ($value as $weekKey => $weekValue) {
                     /** $weekKey => weekId*/
-                    foreach ($weekValue as $dayKey => $dayVale) {
+                    foreach ($weekValue as $dayKey => $dayValue) {
                         /** $dayKey => dayId*/
-                        array_push($data, [
-                            'record_id' => $recordId,
-                            'day' => $dayKey,
-                            'input' => intval($dayVale),
-                            'created_at' => date("Y-m-d H:i:s")
-                        ]);
+                        if ($dayValue != 0)
+                            array_push($data, [
+                                'record_id' => $recordId,
+                                'student_id' => $key,
+                                'week' => $weekKey,
+                                'day' => $dayKey,
+                                'input' => intval($dayValue),
+                                'created_at' => date("Y-m-d H:i:s")
+                            ]);
+
                     }
                 }
             }
-            //echo json_encode($data);exit();
             if (AttendanceRecordInput::insert($data)) return 1;
             return 0;
 
@@ -74,9 +79,28 @@ class AttendanceRecordController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            return AttendanceRecord::select('attendance_records.*', 'attendance_record_inputs.week as weeks')
+                ->join('attendance_record_inputs', 'attendance_record_inputs.record_id', 'attendance_records.id')
+                ->where('attendance_records.id', intval($request->recordId))
+                ->distinct()
+                ->get();
+        } else {
+            echo "Sadece AJAX sorgular için";
+        }
+    }
+
+    public function recordInputList(Request $request)
+    {
+        if ($request->ajax()) {
+            return AttendanceRecordInput::where('record_id', intval($request->recordId))
+                ->orderBy('id')
+                ->get();
+        } else {
+            echo "Sadece AJAX sorgular için";
+        }
     }
 
     /**
@@ -90,9 +114,55 @@ class AttendanceRecordController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $userId = Auth::user()->id;
+
+            $record = AttendanceRecord::where('id', $request->recordId)->first();
+            $record->updated_user_id = $userId;
+            $record->updated_at = date("Y-m-d H:i:s");
+            $record->update();
+
+            $data = array();
+            foreach ($request->inputs as $key => $value) {
+                /** $key => studentId*/
+                foreach ($value as $weekKey => $weekValue) {
+                    /** $weekKey => weekId*/
+                    foreach ($weekValue as $dayKey => $dayValue) {
+                        /** $dayKey => dayId*/
+                        if ($dayValue != 0) {
+                            $recordInput = AttendanceRecordInput::where('record_id', $request->recordId)
+                                ->where('student_id', $key)
+                                ->where('week', $weekKey)
+                                ->where('day', $dayKey)
+                                ->orderBy('id')
+                                ->first();
+                            if (!is_null($recordInput)) {
+                                $recordInput->input = intval($dayValue);
+                                $recordInput->updated_at = date("Y-m-d H:i:s");
+
+                                $recordInput->update();
+                            } else {
+                                array_push($data, [
+                                    'record_id' => $request->recordId,
+                                    'student_id' => $key,
+                                    'week' => $weekKey,
+                                    'day' => $dayKey,
+                                    'input' => intval($dayValue),
+                                    'created_at' => date("Y-m-d H:i:s")
+                                ]);
+                            }
+                        }
+                    }
+                }
+            }
+            AttendanceRecordInput::insert($data);
+            return 1;
+
+        } else {
+            echo "Sadece AJAX sorgusunda kullanılır.";
+        }
     }
 
     /**
@@ -102,8 +172,8 @@ class AttendanceRecordController extends Controller
     {
         if ($request->ajax()) {
             $record = AttendanceRecord::where('id', $request->recordId)->first();
-            if ($record->delete()){
-                $inputs = AttendanceRecordInput::where('record_id',$request->recordId)->each(function ($input,$key){
+            if ($record->delete()) {
+                $inputs = AttendanceRecordInput::where('record_id', $request->recordId)->each(function ($input, $key) {
                     $input->delete();
                 });
                 return 1;
@@ -118,16 +188,17 @@ class AttendanceRecordController extends Controller
     {
         if ($request->ajax()) {
             if (isset($request->search->value) && $request->search->value != '' && $request->search->value > 0) {
-                $records = AttendanceRecord::select('attendance_records.*', 'users.username as username', 'classes.name as classname', 'semesters.name as semestername')
+                $records = AttendanceRecord::select('attendance_records.*', 'users.username as username', 'classes.name as classname', 'courses.name as course_name', 'semesters.name as semestername')
                     ->join('users', 'users.id', 'attendance_records.user_id')
                     ->join('classes', 'classes.id', 'attendance_records.class_id')
                     ->join('semesters', 'semesters.id', 'attendance_records.semester_id')
                     ->orderBy('id')
                     ->get();
             } else {
-                $records = AttendanceRecord::select('attendance_records.*', 'users.username as username', 'classes.name as classname', 'semesters.name as semestername')
+                $records = AttendanceRecord::select('attendance_records.*', 'users.username as username', 'classes.name as classname', 'courses.name as coursename', 'semesters.name as semestername')
                     ->join('users', 'users.id', 'attendance_records.user_id')
                     ->join('classes', 'classes.id', 'attendance_records.class_id')
+                    ->join('courses', 'courses.id', 'attendance_records.course_id')
                     ->join('semesters', 'semesters.id', 'attendance_records.semester_id')
                     ->orderBy('id')
                     ->get();
@@ -140,8 +211,9 @@ class AttendanceRecordController extends Controller
                 $row['id'] = $record->id;
                 $row['orderNumber'] = $i++;
                 $row['user'] = $record->username;
-                $row['class'] = $record->classname;
                 $row['semester'] = $record->semestername;
+                $row['class'] = $record->classname;
+                $row['course'] = $record->coursename;
                 $row['recordName'] = $record->name;
                 $row['createdAt'] = $this->DD_MM_YYYY_rotate(substr(date($record->created_at), 0, 10)) . substr(date($record->created_at), 10);
                 $row['edit'] = "";
@@ -155,7 +227,14 @@ class AttendanceRecordController extends Controller
                                 ' . (!is_null($permissions) && isset($permissions['user']) && $permissions['attendance-record']['deleting'] == 1 ? '<a href="javascript:;" class="btn btn-sm btn-icon" onclick="delete_attendance_record(' . $data['id'] . ')" title="' . Lang::get('body.delete') . '"><i class="fas fa fa-trash text-danger"></i></a>' : '') . '
                             ';
                 })
-                ->rawColumns(['edit'])
+                ->editColumn('weeks', function ($data) {
+                    $html = '';
+                    foreach (AttendanceRecordInput::where('record_id', $data['id'])->distinct()->get('week') as $week) {
+                        $html .= '<button class="btn font-weight-bold btn-light-primary mr-2">' . $week->week . ' ' . Lang::get('body.week') . '</button>';
+                    }
+                    return $html;
+                })
+                ->rawColumns(['weeks', 'edit'])
                 ->make(true);
         } else {
             echo "Sadece AJAX sorgusunda kullanılır.";
@@ -166,28 +245,29 @@ class AttendanceRecordController extends Controller
     public function getFilteredClassDataTable(Request $request)
     {
         if ($request->ajax()) {
-            if (isset($request->search->value) && $request->search->value != '' && $request->search->value > 0) {
-                $students = Student::where('class_id', $request->classId)
-                    ->orderBy('id')
-                    ->get();
-            } else {
-                $students = Student::where('class_id', $request->classId)
-                    ->orderBy('id')
-                    ->get();
-            }
-
             $data = array();
-            $i = 1;
-            foreach ($students as $student) {
-                $row = array();
-                $row['id'] = $student->id;
-                $row['class_id'] = $request->classId;
-                $row['course_id'] = $request->courseId;
-                $row['week'] = $request->week;
-                $row['orderNumber'] = $i++;
-                $row['student'] = $student->firstname . '' . $student->second_name . ' ' . $student->lastname;
-                $row['edit'] = "";
-                $data[] = $row;
+            if (isset($request->week)) {
+                if (isset($request->search->value) && $request->search->value != '' && $request->search->value > 0) {
+                    $students = Student::where('class_id', $request->classId)
+                        ->orderBy('id')
+                        ->get();
+                } else {
+                    $students = Student::where('class_id', $request->classId)
+                        ->orderBy('id')
+                        ->get();
+                }
+                $i = 1;
+                foreach ($students as $student) {
+                    $row = array();
+                    $row['id'] = $student->id;
+                    $row['class_id'] = $request->classId;
+                    $row['course_id'] = $request->courseId;
+                    $row['week'] = $request->week;
+                    $row['orderNumber'] = $i++;
+                    $row['student'] = $student->firstname . '' . $student->second_name . ' ' . $student->lastname;
+                    $row['edit'] = "";
+                    $data[] = $row;
+                }
             }
             return DataTables::of($data)
                 ->editColumn('edit', function ($data) {

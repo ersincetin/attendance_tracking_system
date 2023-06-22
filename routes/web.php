@@ -119,7 +119,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('dataTable', [AttendanceRecordController::class, 'dataTables']);
         Route::post('getFilteredClassDataTable', [AttendanceRecordController::class, 'getFilteredClassDataTable']);
         Route::post('get', [AttendanceRecordController::class, 'show']);
-        Route::post('getList', [AttendanceRecordController::class, 'list']);
+        Route::post('getList', [AttendanceRecordController::class, 'recordInputList']);
         Route::post('create', [AttendanceRecordController::class, 'store']);
         Route::post('update', [AttendanceRecordController::class, 'update']);
         Route::post('delete', [AttendanceRecordController::class, 'destroy']);
