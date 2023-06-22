@@ -41,6 +41,7 @@
         $('.is-invalid').removeClass('is-invalid');
         $('.is-valid').removeClass('is-valid');
         $('[name="attendance-record-modal"]').find('.modal-title').text("@lang('body.record_add')").end().modal('show');
+        $('[name="name-div"]').removeClass('d-none');
         getClassAndCourseList();
         getSemesterList();
         getActiveWeekList();
@@ -78,11 +79,30 @@
 
     /** Get Week List*/
     function getActiveWeekList() {
-        $('[name="week"]').empty();
-        [1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(function (value, key) {
-            $('[name="week"]').append($('<option></option>').val(value).html(value + '. Week'));
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            'url': '{{url('admin/settings/site_setting/active_weeks')}}',
+            'type': 'POST',
+            'dataType': 'JSON',
+            beforeSend: function () {
+
+            },
+            success: function (data) {
+                if (undefined != data) {
+                    $('[name="week"]').empty();
+                    let selected_week_array = data.active_weeks.substring(1, data.active_weeks.length - 1).replace(/"/g, '').split(',');
+                    selected_week_array.forEach(function (value, key) {
+                        $('[name="week"]').append($('<option></option>').val(value).html(value + '. Week'));
+                    });
+                    $('[name="week"]').selectpicker('refresh');
+                }
+            }, error: function (data) {
+                console.log(data);
+            }
         });
-        $('[name="week"]').selectpicker('refresh');
     }
 
     /**Get Class and Course List*/
@@ -242,7 +262,7 @@
     function edit_attendance_record(id) {
 
         $('[name="attendance-record-add-btn"]').trigger('click');
-
+        $('[name="name-div"]').addClass('d-none');
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

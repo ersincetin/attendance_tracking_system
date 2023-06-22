@@ -13,6 +13,9 @@ return new class extends Migration {
         Schema::create('site_settings', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->string('start_date', '11')->nullable();
+            $table->string('end_date', '11')->nullable();
+            $table->string('active_weeks')->nullable();
             $table->text('json')->nullable();
             $table->timestamp('created_at')->nullable(false);
             $table->timestamp('updated_at')->nullable();
