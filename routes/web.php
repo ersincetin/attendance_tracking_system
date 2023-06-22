@@ -110,8 +110,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
             Route::get('/', [SiteSettingController::class, 'index']);
             Route::post('get', [SemesterController::class, 'show']);
             Route::post('save', [SiteSettingController::class, 'save']);
-        });
 
+            Route::get('week', [SiteSettingController::class, 'week']);
+            Route::post('active_weeks', [SiteSettingController::class, 'active_weeks']);
+        });
     });
 
     Route::prefix('attendance_record')->group(function () {

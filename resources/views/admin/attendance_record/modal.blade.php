@@ -37,7 +37,7 @@
 
                             </select>
                         </div>
-                        <div class="col-lg-3 mt-lg-8">
+                        <div class="col-lg-3 mt-lg-8" name="name-div">
                             <a href="javascript:;" class="btn btn-outline-primary btn-primary--icon col-12"
                                name="search-btn">
 													<span>

@@ -18,6 +18,15 @@ class SiteSettingController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     */
+    public function week(): View
+    {
+        return view('admin.setting.week.index');
+    }
+
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
@@ -43,6 +52,15 @@ class SiteSettingController extends Controller
                 ]);
                 if ($setting->save()) return 1;
                 return 0;
+            } else if (isset($request->start_date) || isset($request->end_date) || isset($request->selected_weeks)) {
+                $setting = new SiteSetting([
+                    'name' => 'Site Setting',
+                    'start_date' => isset($request->start_date) ? $request->start_date : null,
+                    'end_date' => isset($request->end_date) ? $request->end_date : null,
+                    'active_weeks' => isset($request->selected_weeks) ? json_encode($request->selected_weeks, true) : null,
+                ]);
+                if ($setting->save()) return 1;
+                return 0;
             }
         } else {
             return "Sadece AJAX sorgular için";
@@ -59,6 +77,15 @@ class SiteSettingController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function active_weeks(Request $request)
+    {
+        if ($request->ajax()) return SiteSetting::first(['start_date', 'end_date', 'active_weeks']);
+        return "Sadece AJAX sorgular için";
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
@@ -69,17 +96,26 @@ class SiteSettingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
         if ($request->ajax()) {
             $setting = SiteSetting::first();
-            $setting_json = json_decode($setting->json, true);
 
-            $setting->json = '{' . (isset($request->homepageHeader) ? '"homepageHeader":"' . $request->homepageHeader . '"' : null) . ',
+            $setting->start_date = isset($request->start_date) ? $request->start_date : $setting->start_date;
+            $setting->end_date = isset($request->end_date) ? $request->end_date : $setting->end_date;
+            $setting->active_weeks = isset($request->selected_weeks) ? json_encode($request->selected_weeks) : $setting->selected_weeks;
+
+            if (!is_null($setting->json)) {
+                $setting_json = json_decode($setting->json, true);
+                $setting->json = '{' . (isset($request->homepageHeader) ? '"homepageHeader":"' . $request->homepageHeader . '"' : null) . ',
                 ' . (isset($request->homepageSubHeader) ? '"homepageSubHeader":"' . $request->homepageSubHeader . '"' : null) . '
                 ' . ($request->hasFile('homepage_file') ? '"homepage_logo":"' . self::uploadPhoto($request->homepage_file, $setting_json->homepage_logo) . '"' : null) . '
                 ' . ($request->hasFile('admin_panel_file') ? '"admin_panel_logo":"' . self::uploadPhoto($request->admin_panel_file, $setting_json->admin_panel_logo) . '"' : null) . '
                 ' . ($request->hasFile('admin_panel_mobile_file') ? '"admin_panel_mobile_logo":"' . self::uploadPhoto($request->admin_panel_mobile_file, $setting_json->admin_panel_mobile_logo) . '"' : null) . '}';
+            }
+
+            if ($setting->update()) return 1;
+            return 0;
         } else {
             return "Sadece AJAX sorgular için";
         }
@@ -99,8 +135,12 @@ class SiteSettingController extends Controller
     public function save(Request $request)
     {
         if ($request->ajax()) {
-            if (count(SiteSetting::get()) > 0) $this->update($request);
-            $this->store($request);
+            if (count(SiteSetting::get()) > 0) {
+                $this->update($request);
+            } else {
+                $this->store($request);
+            }
+
         }
     }
 

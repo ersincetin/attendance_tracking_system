@@ -17,6 +17,9 @@ class SiteSetting extends Model
     protected $fillable = [
         'id',
         'name',
+        'start_date',
+        'end_date',
+        'active_weeks',
         'json',
         'created_at',
         'updated_at',

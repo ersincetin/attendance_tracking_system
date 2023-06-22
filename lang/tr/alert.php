@@ -38,6 +38,7 @@ return [
     'semester_add' => 'Sömestr(Dönem) Ekleme',
     'semester_update' => 'Sömestr(Dönem) Güncelleme',
     'semester_delete' => 'Sömestr(Dönem) Silme',
+    'input_empty' => 'Tarih alanı boş olamaz.',
     '' => '',
     '' => '',
     '' => '',

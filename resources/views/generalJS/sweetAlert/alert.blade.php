@@ -12,11 +12,13 @@
                 });
                 break;
             case 'warning':
-                Swal.fire(
-                    "Deleted!",
-                    "Your file has been deleted.",
-                    "warning"
-                )
+                Swal.fire({
+                    icon: "warning",
+                    title: title,
+                    text: message,
+                    showConfirmButton: false,
+                    timer: 2000
+                });
                 break;
             case 'confirm':
                 break;

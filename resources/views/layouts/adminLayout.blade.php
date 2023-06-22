@@ -279,13 +279,36 @@
                                             </ul>
                                         </div>
                                     </li>
-                                    <li class="menu-item" aria-haspopup="true">
-                                        <a href="{{url('admin/settings/site_setting')}}" class="menu-link">
+                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                        data-menu-toggle="hover">
+                                        <a href="javascript:;" class="menu-link menu-toggle">
                                             <i class="menu-bullet menu-bullet-dot">
                                                 <span></span>
                                             </i>
                                             <span class="menu-text">@lang('body.site_settings')</span>
+                                            <i class="menu-arrow"></i>
                                         </a>
+                                        <div class="menu-submenu">
+                                            <i class="menu-arrow"></i>
+                                            <ul class="menu-subnav">
+                                                <li class="menu-item" aria-haspopup="true">
+                                                    <a href="{{url('admin/settings/site_setting')}}" class="menu-link">
+                                                        <i class="menu-bullet menu-bullet-dot">
+                                                            <span></span>
+                                                        </i>
+                                                        <span class="menu-text">Logo & Header</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-item" aria-haspopup="true">
+                                                    <a href="{{url('admin/settings/site_setting/week')}}" class="menu-link">
+                                                        <i class="menu-bullet menu-bullet-dot">
+                                                            <span></span>
+                                                        </i>
+                                                        <span class="menu-text">@lang('body.active_weeks')</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
