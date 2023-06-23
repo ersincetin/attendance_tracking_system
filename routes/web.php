@@ -11,6 +11,7 @@ use App\Http\Controllers\admin\StudentController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\StudentAuthenticatedSessionController;
+use App\Http\Controllers\Student\StudentDashboardController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
@@ -131,7 +132,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 });
 
 Route::prefix('student')->middleware('auth.student')->group(function () {
-    Route::get('dashboard', [DashboardController::class, 'index']);
+    Route::get('dashboard', [StudentDashboardController::class, 'index']);
+    Route::get('profile', function (): View {
+        return view('student.profile.index');
+    });
 });
 
 Route::prefix('admin')->middleware('guest')->group(function () {
